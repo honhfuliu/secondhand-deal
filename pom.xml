@@ -25,11 +25,36 @@
         <knife4j.version>4.4.0</knife4j.version>
         <mysql.version>8.0.31</mysql.version>
         <mybati.plus.version>3.5.4.1</mybati.plus.version>
+        <alibabacloud.dysmsapi>2.0.24</alibabacloud.dysmsapi>
+        <java.jwt.version>4.1.0</java.jwt.version>
+        <jackson.version>2.11.2</jackson.version>
 
     </properties>
 
     <dependencyManagement>
         <dependencies>
+
+            <!--json数据转换-->
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/com.auth0/java-jwt -->
+            <dependency>
+                <groupId>com.auth0</groupId>
+                <artifactId>java-jwt</artifactId>
+                <version>${java.jwt.version}</version>
+            </dependency>
+
+
+            <!--阿里云短息服务依赖-->
+            <dependency>
+                <groupId>com.aliyun</groupId>
+                <artifactId>alibabacloud-dysmsapi20170525</artifactId>
+                <version>${alibabacloud.dysmsapi}</version>
+            </dependency>
 
             <!--springBoot3.1.6-->
             <dependency>
@@ -79,12 +104,4 @@
         </dependencies>
     </dependencyManagement>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
 </project>

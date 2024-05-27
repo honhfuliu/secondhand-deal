@@ -1,0 +1,45 @@
+#手机注册登录配置
+sms:
+  accessKeyId: LTAI5tNgW6wvNViEJVBmHEeM
+  accessKeySecret: aScZFGsSjJOPT7Bq4Y6uIaWR3FWXaA
+
+  # 注册验证码模版配置
+  register:
+    signName: 二手交易平台
+    templateCode: SMS_465585300
+
+  #登录验证码模版配置
+  login:
+    signName: 二手交易平台
+    templateCode: SMS_465630232
+
+  #密码找回验证码模版配置
+  password:
+    signName: 二手交易平台
+    templateCode: SMS_465600298
+
+#邮箱注册登录配置
+spring:
+  mail:
+    # smtp服务主机  qq邮箱则为smtp.qq.com
+    host: smtp.163.com
+    # 发送邮件的账户
+    username: ziheng870@163.com
+    #授权码
+    password: HOZXYKSWXCNRSMPH
+    default-encoding: utf-8
+    # 服务协议 smtp为发送邮件
+    protocol: smtp
+    # 开启一些权限
+    test-connection: true
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+#logging:
+#  level:
+#    root: debug
+

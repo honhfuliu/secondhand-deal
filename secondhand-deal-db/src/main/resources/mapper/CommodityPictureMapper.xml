@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ziheng.deal.db.mapper.CommodityPictureMapper">
+
+    <resultMap id="BaseResultMap" type="com.ziheng.deal.db.entity.CommodityPicture">
+            <id property="pId" column="p_id" jdbcType="INTEGER"/>
+            <result property="pPath" column="p_path" jdbcType="VARCHAR"/>
+            <result property="commodityId" column="commodity_id" jdbcType="INTEGER"/>
+            <result property="isDisplayPicture" column="is_display_picture" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        p_id,p_path,commodity_id,
+        is_display_picture
+    </sql>
+</mapper>

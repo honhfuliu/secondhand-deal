@@ -2,6 +2,7 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
@@ -12,5 +13,11 @@
         <module name="secondhand-deal-user-api" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="secondhand-deal-admin-api" target="17" />
+      <module name="secondhand-deal-common" target="17" />
+      <module name="secondhand-deal-db" target="17" />
+      <module name="secondhand-deal-user-api" target="17" />
+    </bytecodeTargetLevel>
   </component>
 </project>

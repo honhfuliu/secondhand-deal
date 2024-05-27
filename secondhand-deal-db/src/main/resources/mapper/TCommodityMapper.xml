@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ziheng.deal.db.mapper.TCommodityMapper">
+
+    <resultMap id="BaseResultMap" type="com.ziheng.deal.db.entity.TCommodity">
+            <id property="cId" column="c_id" jdbcType="INTEGER"/>
+            <result property="commodityTitle" column="commodity_title" jdbcType="VARCHAR"/>
+            <result property="brand" column="brand" jdbcType="VARCHAR"/>
+            <result property="locality" column="locality" jdbcType="VARCHAR"/>
+            <result property="isinteger" column="isInteger" jdbcType="CHAR"/>
+            <result property="style" column="style" jdbcType="VARCHAR"/>
+            <result property="design" column="design" jdbcType="VARCHAR"/>
+            <result property="material" column="material" jdbcType="VARCHAR"/>
+            <result property="suitableObject" column="suitable_object" jdbcType="VARCHAR"/>
+            <result property="commodityType" column="commodity_type" jdbcType="VARCHAR"/>
+            <result property="cPrice" column="c_price" jdbcType="DECIMAL"/>
+            <result property="cNumber" column="c_number" jdbcType="INTEGER"/>
+            <result property="deliveryMethod" column="delivery_method" jdbcType="VARCHAR"/>
+            <result property="shippingFees" column="shipping_fees" jdbcType="DECIMAL"/>
+            <result property="commodityDetails" column="commodity_details" jdbcType="VARCHAR"/>
+            <result property="cStatus" column="c_status" jdbcType="INTEGER"/>
+            <result property="createUser" column="create_user" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="DATE"/>
+            <result property="modifiedUser" column="modified_user" jdbcType="VARCHAR"/>
+            <result property="modifiedTime" column="modified_time" jdbcType="DATE"/>
+            <result property="classifyId" column="classify_id" jdbcType="INTEGER"/>
+            <result property="userId" column="user_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        c_id,commodity_title,brand,
+        locality,isInteger,style,
+        design,material,suitable_object,
+        commodity_type,c_price,c_number,
+        delivery_method,shipping_fees,commodity_details,
+        c_status,create_user,create_time,
+        modified_user,modified_time,classify_id,
+        user_id
+    </sql>
+
+
+</mapper>

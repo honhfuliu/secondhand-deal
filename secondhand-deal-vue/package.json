@@ -1,8 +1,8 @@
 {
-  "name": "secondhand-deal-vue",
+  "name": "zhxy",
   "version": "1.0.0",
-  "description": "secondhand deal",
-  "author": "ziheng",
+  "description": "A Vue.js project",
+  "author": "administrator <3120372227@qq.com>",
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
@@ -13,10 +13,15 @@
     "build": "node build/build.js"
   },
   "dependencies": {
-    "axios": "^1.6.8",
+    "@wangeditor/editor": "^5.1.23",
+    "@wangeditor/editor-for-vue": "^1.0.2",
+    "axios": "^1.5.0",
     "element-ui": "^2.15.14",
+    "is-plain-object": "^5.0.0",
     "vue": "^2.5.2",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "vue-table-with-tree-grid": "^0.2.4",
+    "wangeditor": "^4.7.15"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
@@ -50,6 +55,7 @@
     "portfinder": "^1.0.13",
     "postcss-import": "^11.0.0",
     "postcss-loader": "^2.0.8",
+    "postcss-pxtorem": "^6.1.0",
     "postcss-url": "^7.2.1",
     "rimraf": "^2.6.0",
     "selenium-server": "^3.0.1",

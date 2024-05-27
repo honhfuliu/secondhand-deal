@@ -1,0 +1,28 @@
+server:
+  port: 8989
+
+spring:
+  profiles:
+    active: db, common, admin
+
+  mvc:
+    contentnegotiation:
+      favor-parameter: false
+
+# springdoc-openapi项目配置
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+  group-configs:
+    - group: 'com.ziheng.deal'
+      paths-to-match: '/**'
+      packages-to-scan: com.ziheng.deal
+
+
+#logging:
+#  level:
+#    root: debug
