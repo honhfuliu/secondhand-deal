@@ -1,6 +1,6 @@
 package com.ziheng.deal.service.impl;
 
-import com.ziheng.deal.db.domain.DTO.ClassificationDTO;
+import com.ziheng.deal.common.domain.DTO.ClassificationDTO;
 import com.ziheng.deal.db.entity.TClassification;
 import com.ziheng.deal.db.service.TClassificationService;
 import jakarta.annotation.Resource;

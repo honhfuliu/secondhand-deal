@@ -173,6 +173,7 @@ export default {
           alert(msg.data.message)
           // console.log(msg.data)
           sessionStorage.setItem("token", msg.data.data.token)
+          this.$router.push('/home');
         } else {
           alert(msg.data.message)
         }

@@ -39,6 +39,10 @@ spring:
           starttls:
             enable: true
             required: true
+
+# 静态资源目录
+upload:
+  path: E:/myProject/二手交易平台/commodity
 #logging:
 #  level:
 #    root: debug

@@ -64,8 +64,9 @@ export default {
         data: this.loginData
       }).then(msg =>{
         if (msg.data.code === 200) {
-          console.log(msg.data.data.token)
+          // console.log(msg.data.data.token)
           sessionStorage.setItem("adminToken", msg.data.data.token)
+          this.$router.push('/systemManage/systemHome');
         } else {
           alert(msg.data.message)
         }

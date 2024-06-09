@@ -21,6 +21,8 @@ public class InterceptorConfigurer implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         List<String> WhitelistPaths = Arrays.asList(
                 "/reg/**/**",
+                "/upload/**",
+//                "/commodity/**",
                 "/reg/recover/code/v",
                 "/admin/**",
                 "/error",

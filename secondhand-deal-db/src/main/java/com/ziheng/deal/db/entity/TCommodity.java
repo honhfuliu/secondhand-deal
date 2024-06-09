@@ -93,9 +93,19 @@ public class TCommodity extends BaseEntity implements Serializable {
     private String commodityDetails;
 
     /**
-     * 商品状态 0-待审核，1-上架，2-下架
+     * 商品状态 0-待审核，1-驳回 2-上架，3-下架
      */
     private Integer cStatus;
+
+    /**
+     * 商品审核不通过原因
+     */
+    private String rejectReason;
+
+    /**
+     * 销量
+     */
+    private Integer buyNumber;
 
     /**
      * 创建人
@@ -130,7 +140,7 @@ public class TCommodity extends BaseEntity implements Serializable {
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
-    public TCommodity(Integer cId, String commodityTitle, String brand, String locality, String isinteger, String style, String design, String material, String suitableObject, String commodityType, BigDecimal cPrice, Integer cNumber, String deliveryMethod, BigDecimal shippingFees, String commodityDetails, Integer cStatus, String createUser, Date createTime, String modifiedUser, Date modifiedTime, Integer classifyId, Integer userId) {
+    public TCommodity(Integer cId, String commodityTitle, String brand, String locality, String isinteger, String style, String design, String material, String suitableObject, String commodityType, BigDecimal cPrice, Integer cNumber, String deliveryMethod, BigDecimal shippingFees, String commodityDetails, Integer cStatus, String rejectReason, Integer buyNumber, String createUser, Date createTime, String modifiedUser, Date modifiedTime, Integer classifyId, Integer userId) {
         this.cId = cId;
         this.commodityTitle = commodityTitle;
         this.brand = brand;
@@ -147,6 +157,8 @@ public class TCommodity extends BaseEntity implements Serializable {
         this.shippingFees = shippingFees;
         this.commodityDetails = commodityDetails;
         this.cStatus = cStatus;
+        this.rejectReason = rejectReason;
+        this.buyNumber = buyNumber;
         this.createUser = createUser;
         this.createTime = createTime;
         this.modifiedUser = modifiedUser;
@@ -156,6 +168,22 @@ public class TCommodity extends BaseEntity implements Serializable {
     }
 
     public TCommodity() {
+    }
+
+    public String getRejectReason() {
+        return rejectReason;
+    }
+
+    public Integer getBuyNumber() {
+        return buyNumber;
+    }
+
+    public void setRejectReason(String rejectReason) {
+        this.rejectReason = rejectReason;
+    }
+
+    public void setBuyNumber(Integer buyNumber) {
+        this.buyNumber = buyNumber;
     }
 
     public Integer getcId() {

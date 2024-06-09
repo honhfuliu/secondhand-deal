@@ -40,5 +40,39 @@
         user_id
     </sql>
 
+    <!--根据用户id和条件查询符合条件的商品-->
+    <select id="getByIdPageCommodity" resultType="com.ziheng.deal.common.domain.DTO.commodityListDTO">
+        SELECT
+            t_commodity.c_id as id,
+            t_commodity.c_status as status,
+            t_commodity.commodity_title,
+            t_commodity.c_price,
+            t_commodity.c_number,
+            t_commodity.buy_number,
+            t_commodity.create_time as create_data,
+            commodity_picture.p_path as img_path
+        FROM
+            t_commodity
+        INNER JOIN
+            commodity_picture
+        ON
+            t_commodity.c_id = commodity_picture.commodity_id
+        WHERE
+            t_commodity.user_id = #{userId}
+        AND
+            commodity_picture.is_display_picture = 1
+        <if test="commodityPageQueryVO.status != null">
+            AND t_commodity.c_status = #{commodityPageQueryVO.status}
+        </if>
+
+        <if test="commodityPageQueryVO.commodityTitle != null">
+            AND t_commodity.commodity_title like "%" #{commodityPageQueryVO.commodityTitle} "%"
+        </if>
+
+    </select>
+
+
+
+
 
 </mapper>

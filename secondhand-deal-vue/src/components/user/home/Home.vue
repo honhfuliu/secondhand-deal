@@ -1,5 +1,5 @@
 <template>
-  <div style="">
+  <div>
     <div class="divtop">
       <Common></Common>
 
@@ -21,7 +21,7 @@
     </div>
 
 
-    <div style="height: 100%; width: 100%">
+    <div>
       <!--信息start-->
       <div v-show="showInfo === 1" style="width: 80%; height: 100%;margin: 135px auto">
         <el-container style="height: 100%">
@@ -40,7 +40,7 @@
                 <span slot="title" class="span1">商品发布</span>
               </el-menu-item>
 
-              <el-menu-item>
+              <el-menu-item index="commodityShow">
                 <span slot="title" class="span1">已发布的商品</span>
               </el-menu-item>
 
@@ -74,7 +74,7 @@
             </el-menu>
           </el-aside>
           <el-container>
-            <el-main style="margin: -30px 0">
+            <el-main style="margin: -30px 0; ">
               <router-view></router-view>
             </el-main>
           </el-container>
@@ -119,6 +119,7 @@ export default {
   position: fixed;
   top: 0;
   width: 100%;
+  z-index: 999;
 }
 
 .el-menu-item, .el-submenu__title {

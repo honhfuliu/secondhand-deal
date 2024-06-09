@@ -19,6 +19,13 @@
     </properties>
 
     <dependencies>
+        <!--pagehelper 分页插件-->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+        </dependency>
+
+
         <!--引入公共模块-->
         <dependency>
             <groupId>com.ziheng.deal</groupId>
@@ -60,6 +67,13 @@
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
         </dependency>
+
+        <!--验证约束-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+
 
     </dependencies>
 

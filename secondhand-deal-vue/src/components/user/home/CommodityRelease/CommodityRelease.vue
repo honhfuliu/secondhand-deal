@@ -44,8 +44,6 @@
 
               </div>
 
-
-
             </div >
           </el-col>
         </el-row>
@@ -64,8 +62,20 @@
             <div>
               <span style="float: left; margin: 4px 10px; color: #949393">请确认或修改商品类目</span>
             </div>
-            <div style="display: flex; margin-top: 40px; margin-left: 20px">
-              <el-cascader  clearable></el-cascader>
+            <div style="display: flex; margin-top: 40px; margin-left: 20px" @click="ClassificationAll">
+              <el-cascader
+                style="width: 30%"
+                placeholder="分类"
+                ref="elCascader"
+                v-model="classifyId1"
+                :options="ClassificationList"
+                :props="cascaderProps"
+                :clearable="true"
+                :collapse-tags="true"
+                @change="handleChangeCascader"
+              >
+
+              </el-cascader>
             </div>
 
 
@@ -114,7 +124,7 @@
 
 
               <el-form-item label="是否整装："  style="margin-left: -24px">
-                <el-select v-model="addCommodity.isInteger" placeholder="请选择" class="input1">
+                <el-select v-model="addCommodity.isinteger" placeholder="请选择" class="input1">
                   <el-option
                     v-for="item in isInteger"
                     :key="item.value"
@@ -195,7 +205,12 @@
           </el-col>
 
           <el-col :span="18" >
-            <el-input placeholder="请输入商品的价格" style="margin: -3px 21px; width: 300px; float: left" v-model="addCommodity.commodityPrice"></el-input>
+            <el-input-number
+              :precision="2"
+              placeholder="请输入商品的价格"
+              style="margin: -3px 21px; width: 300px; float: left"
+              v-model="addCommodity.cprice"
+            ></el-input-number>
           </el-col>
         </el-row>
         <!--商品价格end-->
@@ -209,7 +224,11 @@
           </el-col>
 
           <el-col :span="18" >
-            <el-input placeholder="请输入商品的数量" style="margin: -3px 21px; width: 300px; float: left" v-model="addCommodity.commodityNumber"></el-input>
+            <el-input-number
+              placeholder="请输入商品的数量"
+              style="margin: -3px 21px; width: 300px; float: left"
+              v-model="addCommodity.cnumber"
+            ></el-input-number>
           </el-col>
         </el-row>
         <!--商品数量end-->
@@ -272,7 +291,7 @@
         <!--提交start-->
         <el-row style="padding: 150px 0">
           <el-col>
-            <el-button type="primary" @click="abc">提交</el-button>
+            <el-button type="primary" @click="commoditySubmit">提交</el-button>
             <el-button type="primary">取消</el-button>
           </el-col>
 
@@ -286,12 +305,13 @@
 </template>
 
 <script>
-import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
+import {Editor, Toolbar} from '@wangeditor/editor-for-vue'
 
 import '@wangeditor/editor/dist/css/style.css'
 
 import Update from '../../../package/update/index.vue'
 
+import axios from "axios";
 
 
 export default {
@@ -300,30 +320,50 @@ export default {
 
   data() {
     return{
+      // 接收修改的数据参数
+      commodityUpdateInfo: null,
 
       update: {
-        result: null,
         fileList: [],
-        bac: "123",
       },
+
+      // 分类数据存储
+      ClassificationList: [],
+
+      // 级联属性绑定
+      cascaderProps: {
+        expandTrigger: 'hover',
+        value: 'classificationId',
+        label: 'classificationName',
+        children: 'children',
+        checkStrictly: true,
+        // multiple: true
+      },
+
+      //商品分类id存储
+      classifyId1 : null,
+
+
 
 
       //新增商品数据存储
       addCommodity:{
-        commodityClassification: null, //商品分类
         commodityTitle: null, //商品标题
+        classifyId: null, //商品分类
         brand: null, // 品牌
         locality: null, //产地
-        isInteger: null, //是否整装
+        isinteger: null, //是否整装
         style: null, //风格
         design: null, //图案
         material: null, //材质
         suitableObject: null, //适用对象
         commodityType: null, //商品类型（成色）
-        commodityPrice: null, //价格
-        commodityNumber: null, //数量
+        cprice: null, //价格
+        cnumber: null, //数量
         deliveryMethod: null, //配送方式
         shippingFees: null, // 配送费用
+        commodityPicturePaths: [], // 商品主图地址存储
+        commodityDetails: null, // 富文本信息
       },
 
       //富文本编辑框配置
@@ -340,7 +380,34 @@ export default {
         MENU_CONF:{
           // 图片上传配置
           uploadImage: {
-            server: this.url + "/img/app"
+            // form-data fieldName ，默认值 'wangeditor-uploaded-image'
+            fieldName: 'file',
+
+            // 后端接口请求地址
+            server:  axios.defaults.baseURL + "/commodity/picture",
+
+            // 单个文件的最大体积限制，默认为 2M
+            maxFileSize: 2 * 1024 * 1024, // 1M
+
+            // 请求头配置
+            // 自定义增加 http  header
+            headers: {
+              token: sessionStorage.getItem("token")
+            },
+
+
+            // 自定义插入图片
+            customInsert(res, insertFn) {
+              // res 即服务端的返回结果
+              // 从 res 中找到 url alt href ，然后插入图片
+              const url = axios.defaults.baseURL + "/" + res.data.url;
+
+              const alt = res.data.alt;
+              const href = res.data.href;
+              insertFn(url, alt, href)
+            },
+
+
           },
 
         },
@@ -368,8 +435,8 @@ export default {
 
       // 风格
       style: [{
-        value: '是',
-        label: '是'
+        value: '其它',
+        label: '其它'
       },{
         value: '其它',
         label: '其它'
@@ -377,14 +444,14 @@ export default {
 
       // 图案
       design: [{
-        value: '是',
-        label: '是'
+        value: '其它',
+        label: '其它'
       },{
         value: '其它',
         label: '其它'
       }],
 
-      // 图案
+      // 适用人群
       suitableObject: [{
         value: '儿童',
         label: '儿童'
@@ -409,11 +476,88 @@ export default {
   },
 
   created() {
+    // 接收页面传递的参数并赋值
+    this.updateCommodityInfo();
+
 
   },
 
 
   methods:{
+    // 修改商品详情信息接收，并赋值
+    updateCommodityInfo(){
+      const decodedData = JSON.parse(decodeURIComponent(this.$route.query.data));
+      console.log(decodedData)
+
+      // 主图
+      // this.update.fileList = decodedData.commodityPicturePaths;
+      for (let i = 0; i < decodedData.commodityPicturePaths.length; i++) {
+        let path = {
+          url: this.$axios.defaults.baseURL  + "/" + decodedData.commodityPicturePaths[i],
+          name: decodedData.commodityPicturePaths[i]
+        }
+        this.update.fileList.push(path);
+      }
+
+      // 商品分类
+      this.ClassificationList = [
+        {
+          classificationId: -1,
+          classificationName: decodedData.classificationName
+        }
+      ]
+
+      this.classifyId1 = -1;
+
+
+
+      this.addCommodity.commodityTitle = decodedData.commodityTitle; // 商品名称
+      this.addCommodity.brand = decodedData.brand; // 品牌
+      this.addCommodity.locality = decodedData.locality; //产地
+      this.addCommodity.isinteger = decodedData.isinteger; //是否整装
+      this.addCommodity.style = decodedData.style; //风格
+      this.addCommodity.design = decodedData.design; //图案
+      this.addCommodity.material = decodedData.material; //材质
+      this.addCommodity.suitableObject = decodedData.suitableObject; //适用对象
+      this.addCommodity.commodityType = decodedData.commodityType;  //商品类型
+      this.addCommodity.cprice = decodedData.cprice; //价格
+      this.addCommodity.cnumber = decodedData.cnumber; //数量
+      //配送方式
+      this.addCommodity.deliveryMethod = decodedData.deliveryMethod;
+      if (this.addCommodity.deliveryMethod === "配送上门") {
+        this.addCommodity.shippingFees = decodedData.shippingFees;
+      }
+
+
+      this.html = decodedData.commodityDetails; // 副本文本信息
+    },
+
+
+
+    // 请求所有商品分类
+    ClassificationAll() {
+      this.$axios({
+        url: "ification",
+        method: "get",
+        headers: {
+          token: sessionStorage.getItem("token")
+        }
+      }).then(msg => {
+        if (msg.data.code === 200) {
+          console.log(msg.data.data)
+          this.ClassificationList = msg.data.data
+
+        }
+      })
+
+    },
+
+    // 关闭级联选择器
+    handleChangeCascader(){
+      this.$refs.elCascader.dropDownVisible = false
+    },
+
+
     onCreated(editor) {
       this.editor = Object.seal(editor) // 一定要用 Object.seal() ，否则会报错
     },
@@ -432,10 +576,61 @@ export default {
     beforeUpload(file){
     },
 
-    abc(){
-      // console.log(this.html)
-      console.log(this.update.fileList)
+    // 商品发布提交
 
+    /*将 commoditySubmit 方法声明为 async，以便使用 await 等待异步请求完成。*/
+    async commoditySubmit() {
+      try {
+        // 提交商品图片
+        if (this.update.fileList.length === 0) {
+          alert("商品主图不能为空")
+          return false;
+        }
+
+        let formData = new FormData();
+        this.update.fileList.forEach((file) => {
+          formData.append("files", file.raw);
+        });
+
+        const pictureResponse = await this.$axios({
+          url: "commodity/pictures",
+          method: "post",
+          data: formData,
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            token: sessionStorage.getItem("token")
+          }
+        });
+
+        if (pictureResponse.data.code === 200) {
+          this.addCommodity.commodityPicturePaths = pictureResponse.data.data;
+          this.addCommodity.commodityDetails = this.html;
+          console.log(this.classifyId1)
+          this.addCommodity.classifyId = this.classifyId1[this.classifyId1.length - 1];
+
+        } else {
+          alert(pictureResponse.data.message);
+          return false;
+        }
+
+        // 提交商品信息
+        const infoResponse = await this.$axios({
+          url: "commodity/info",
+          method: "post",
+          data: this.addCommodity,
+          headers: {
+            token: sessionStorage.getItem("token")
+          }
+        });
+
+        if (infoResponse.data.code === 200) {
+          alert("商品添加成功")
+        } else {
+          alert(infoResponse.data.message);
+        }
+      } catch (error) {
+        console.error('请求失败', error);
+      }
     }
 
   },

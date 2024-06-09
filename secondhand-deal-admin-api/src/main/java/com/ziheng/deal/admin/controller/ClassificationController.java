@@ -3,7 +3,7 @@ package com.ziheng.deal.admin.controller;
 import com.ziheng.deal.common.domain.TokenInfo;
 import com.ziheng.deal.common.resp.ResultJsonData;
 import com.ziheng.deal.common.util.TokenUtil;
-import com.ziheng.deal.db.domain.DTO.ClassificationDTO;
+import com.ziheng.deal.common.domain.DTO.ClassificationDTO;
 import com.ziheng.deal.db.entity.TClassification;
 import com.ziheng.deal.db.service.TClassificationService;
 import io.swagger.v3.oas.annotations.Operation;

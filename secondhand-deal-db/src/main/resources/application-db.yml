@@ -21,3 +21,13 @@ spring:
           min-idle: 0
 
 
+#logging:
+#  level:
+#    root: debug
+
+#pagehelper分页插件配置
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql

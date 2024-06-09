@@ -3,8 +3,7 @@ package com.ziheng.deal.db.service.impl;
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ziheng.deal.common.ex.customizeErorr.serviceErorr.*;
-import com.ziheng.deal.common.util.TokenUtil;
-import com.ziheng.deal.db.domain.DTO.ClassificationDTO;
+import com.ziheng.deal.common.domain.DTO.ClassificationDTO;
 import com.ziheng.deal.db.entity.TClassification;
 import com.ziheng.deal.db.service.TClassificationService;
 import com.ziheng.deal.db.mapper.TClassificationMapper;
@@ -29,6 +28,10 @@ public class TClassificationServiceImpl extends ServiceImpl<TClassificationMappe
     @Resource
     private TClassificationMapper classificationMapper;
 
+    /**
+     * 获取所有的商品分类
+     * @return 所有的商品分类
+     */
     @Override
     public List<ClassificationDTO>  getAllClassification() {
         // 查找出所有的分类
@@ -223,7 +226,8 @@ public class TClassificationServiceImpl extends ServiceImpl<TClassificationMappe
      * 根据某一级分类获取上级分类
      * @param root 当前分类
      */
-    public void getChildrens1(TClassification root){
+    public void getChildrens1(TClassification root)
+    {
 
         for (int item = 0; item < 1; item++) {
             TClassification one = lambdaQuery()
@@ -246,7 +250,8 @@ public class TClassificationServiceImpl extends ServiceImpl<TClassificationMappe
      * @param username 修改人
      */
     @Override
-    public void getByIdUpdateClassification(TClassification classification, String username) {
+    public void getByIdUpdateClassification(TClassification classification, String username)
+    {
         // 根据id查找出需要修改的数据
         TClassification one = lambdaQuery()
                 .eq(classification.getClassificationId() != null, TClassification::getClassificationId, classification.getClassificationId())
@@ -294,7 +299,8 @@ public class TClassificationServiceImpl extends ServiceImpl<TClassificationMappe
      * @param id 商品分类id
      */
     @Override
-    public void getByIdDeleteClassification(Integer id) {
+    public void getByIdDeleteClassification(Integer id)
+    {
         TClassification one = lambdaQuery()
                 .eq(id != null, TClassification::getClassificationId, id)
                 .one();

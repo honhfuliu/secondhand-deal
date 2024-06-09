@@ -36,6 +36,16 @@ const routes = [
           title: "默认页面"
         }
       },
+
+      // 已发布商品查询路由
+      {
+        path: "/commodityShow",
+        name: "CommodityShow",
+        component: ()=> import("../components/user/home/commodityShow/commodityShow.vue"),
+        meta: {
+          title: "商品查询"
+        }
+      },
     ]
 
   },
@@ -45,6 +55,7 @@ const routes = [
     path: '/commodity',
     name: 'CommodityRelease',
     component: () => import("../components/user/home/CommodityRelease/CommodityRelease.vue"),
+    props: true,
     meta: {
       title: "商品发布"
     }

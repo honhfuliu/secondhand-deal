@@ -5,10 +5,15 @@ import com.auth0.jwt.exceptions.SignatureVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.ziheng.deal.common.ex.customizeErorr.EmailMessagingException;
 import com.ziheng.deal.common.ex.customizeErorr.TokenIllegalException;
+import com.ziheng.deal.common.ex.customizeErorr.controllerErorr.FileEmptyException;
+import com.ziheng.deal.common.ex.customizeErorr.controllerErorr.FileSizeException;
+import com.ziheng.deal.common.ex.customizeErorr.controllerErorr.FileTypeException;
 import com.ziheng.deal.common.ex.customizeErorr.serviceErorr.*;
 import com.ziheng.deal.common.resp.ResultJsonData;
 import com.ziheng.deal.common.resp.ReturnCodeEnum;
 import org.apache.ibatis.exceptions.TooManyResultsException;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,10 +22,44 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @ResponseBody
 public class GlobalExceptionHandler {
 
-//    @ExceptionHandler(ArithmeticException.class)
-//    public ResultJsonData bbb() {
-//        return ResultJsonData.fali(600,"傻逼por");
-//    }
+    // 商品不存在异常处理
+    @ExceptionHandler(CommodityDoesNotExistException.class)
+    public ResultJsonData<Void> commodityDoesNotExistException(){
+        return ResultJsonData.fali(ReturnCodeEnum.RC5012.getCode(), ReturnCodeEnum.RC5012.getMessage());
+    }
+
+    // 字段验证不能为空异常处理
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResultJsonData<Void> methodArgumentNotValidException(MethodArgumentNotValidException ex){
+        StringBuilder errors = new StringBuilder();
+        ex.getBindingResult().getAllErrors().forEach((error) -> {
+            String fieldName = ((FieldError) error).getField();
+            String errorMessage = error.getDefaultMessage();
+            errors.append(fieldName).append(": ").append(errorMessage).append("; ");
+        });
+
+        return ResultJsonData.fali(4500, errors.toString());
+    }
+
+
+    // 文件类型错误异常处理
+    @ExceptionHandler(FileTypeException.class)
+    public ResultJsonData<Void> fileTypeException(){
+        return ResultJsonData.fali(ReturnCodeEnum.RC3003.getCode(), ReturnCodeEnum.RC3003.getMessage());
+    }
+
+    // 文件超过指定大小异常处理
+    @ExceptionHandler(FileSizeException .class)
+    public ResultJsonData<Void> fileSizeException(){
+        return ResultJsonData.fali(ReturnCodeEnum.RC3002.getCode(), ReturnCodeEnum.RC3002.getMessage());
+    }
+
+    // 文件为空异常处理
+    @ExceptionHandler(FileEmptyException.class)
+    public ResultJsonData<Void> FileEmptyException(){
+        return ResultJsonData.fali(ReturnCodeEnum.RC3001.getCode(), ReturnCodeEnum.RC3001.getMessage());
+    }
+
     // 删除数据时异常处理
     @ExceptionHandler(DeleteException.class)
     public ResultJsonData<Void> deleteException(){

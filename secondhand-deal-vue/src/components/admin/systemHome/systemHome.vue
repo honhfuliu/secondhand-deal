@@ -1,5 +1,5 @@
 <template>
-  <div style="height: 100%">
+  <div style="height: 100%; width: 100%">
     <el-container style="height: 100%">
       <el-header style="background-color: dodgerblue">
         <div>
