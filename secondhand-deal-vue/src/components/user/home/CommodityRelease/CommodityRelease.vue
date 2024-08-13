@@ -291,7 +291,7 @@
         <!--提交start-->
         <el-row style="padding: 150px 0">
           <el-col>
-            <el-button type="primary" @click="commoditySubmit">提交</el-button>
+            <el-button type="primary" @click="estimateUpdateOrAdd">提交</el-button>
             <el-button type="primary">取消</el-button>
           </el-col>
 
@@ -312,6 +312,7 @@ import '@wangeditor/editor/dist/css/style.css'
 import Update from '../../../package/update/index.vue'
 
 import axios from "axios";
+import index from "../../Index/Index.vue";
 
 
 export default {
@@ -348,6 +349,7 @@ export default {
 
       //新增商品数据存储
       addCommodity:{
+        cid: null, //商品id
         commodityTitle: null, //商品标题
         classifyId: null, //商品分类
         brand: null, // 品牌
@@ -487,7 +489,10 @@ export default {
     // 修改商品详情信息接收，并赋值
     updateCommodityInfo(){
       const decodedData = JSON.parse(decodeURIComponent(this.$route.query.data));
-      console.log(decodedData)
+      // console.log(decodedData)
+
+      // 商品id
+      this.addCommodity.cid = decodedData.cid;
 
       // 主图
       // this.update.fileList = decodedData.commodityPicturePaths;
@@ -570,14 +575,116 @@ export default {
 
     masterFileMax(files, fileList){
       this.$message.warning(`请最多上传5 张图片。`);
-      console.log(this.update.fileList)
+      // console.log(this.update.fileList)
     },
 
     beforeUpload(file){
     },
 
-    // 商品发布提交
 
+    // 判断是修改还是新增
+    estimateUpdateOrAdd()
+    {
+      if (this.addCommodity.cid === null)
+      {
+        this.commoditySubmit()
+      } else
+      {
+        this.UpdateCommodity()
+      }
+    },
+
+    // 商品修改提交
+    async UpdateCommodity() {
+      try
+      {
+        // 提交商品图片
+        if (this.update.fileList.length === 0) {
+          alert("商品主图不能为空")
+          return false;
+        }
+
+        let formData = new FormData();
+        let hasFiles = false; // 假设默认没有文件
+
+        for (let i = 0; i <this.update.fileList.length; i++) {
+          if (this.update.fileList[i].raw) {
+            formData.append("files", this.update.fileList[i].raw);
+            hasFiles = true
+          } else {
+            this.addCommodity.commodityPicturePaths[i] = this.update.fileList[i].name;
+          }
+        }
+
+        //提交图片
+        if (hasFiles !== false) {
+          const pictureResponse = await this.$axios({
+            url: "commodity/pictures",
+            method: "post",
+            data: formData,
+            headers: {
+              'Content-Type': 'multipart/form-data',
+              token: sessionStorage.getItem("token")
+            }
+          });
+
+          if (pictureResponse.data.code === 200) {
+            for (let i = 0; i < pictureResponse.data.data.length; i++) {
+              this.addCommodity.commodityPicturePaths.push(pictureResponse.data.data[i])
+            }
+
+            this.addCommodity.commodityDetails = this.html;
+
+            //分类处理
+            if(this.classifyId1 === -1 || this.classifyId1 === null){
+              this.addCommodity.classifyId = null
+            } else {
+              this.addCommodity.classifyId = this.classifyId1[this.classifyId1.length - 1];
+            }
+
+          } else {
+            alert(pictureResponse.data.message);
+            return false;
+          }
+        } else {
+          this.addCommodity.commodityPicturePaths = null;
+
+          this.addCommodity.commodityDetails = this.html;
+
+          //分类处理
+          if(this.classifyId1 === -1){
+            this.addCommodity.classifyId = null
+          } else {
+            this.addCommodity.classifyId = this.classifyId1[this.classifyId1.length - 1];
+          }
+        }
+
+        // 提交商品信息
+        const infoResponse = await this.$axios({
+          url: "commodity/UpdateInfo",
+          method: "post",
+          data: this.addCommodity,
+          headers: {
+            token: sessionStorage.getItem("token")
+          }
+        });
+
+        if (infoResponse.data.code === 200) {
+          alert("商品修改成功")
+          this.$router.push('/commodityShow');
+        } else {
+          alert(infoResponse.data.message);
+        }
+
+
+      }catch (error)
+      {
+        console.error('请求失败', error);
+      }
+
+    },
+
+    // 商品发布提交
     /*将 commoditySubmit 方法声明为 async，以便使用 await 等待异步请求完成。*/
     async commoditySubmit() {
       try {
@@ -625,6 +732,7 @@ export default {
 
         if (infoResponse.data.code === 200) {
           alert("商品添加成功")
+          this.$router.push('/commodityShow');
         } else {
           alert(infoResponse.data.message);
         }

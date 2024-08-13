@@ -8,6 +8,7 @@ import com.ziheng.deal.common.ex.customizeErorr.TokenIllegalException;
 import com.ziheng.deal.common.ex.customizeErorr.controllerErorr.FileEmptyException;
 import com.ziheng.deal.common.ex.customizeErorr.controllerErorr.FileSizeException;
 import com.ziheng.deal.common.ex.customizeErorr.controllerErorr.FileTypeException;
+import com.ziheng.deal.common.ex.customizeErorr.controllerErorr.FileUploadException;
 import com.ziheng.deal.common.ex.customizeErorr.serviceErorr.*;
 import com.ziheng.deal.common.resp.ResultJsonData;
 import com.ziheng.deal.common.resp.ReturnCodeEnum;
@@ -21,6 +22,101 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @ControllerAdvice
 @ResponseBody
 public class GlobalExceptionHandler {
+    // 订单不存在异常处理
+    @ExceptionHandler(OrderNotFoundException.class)
+    public ResultJsonData<Void> rderNotFoundException(){
+        return ResultJsonData.fali(ReturnCodeEnum.RC1005.getCode(), ReturnCodeEnum.RC1005.getMessage());
+    }
+
+    // 订单号不能为空异常处理
+    @ExceptionHandler(MissingOrderNumberException.class)
+    public ResultJsonData<Void> issingOrderNumberException(){
+        return ResultJsonData.fali(ReturnCodeEnum.RC1004.getCode(), ReturnCodeEnum.RC1004.getMessage());
+    }
+
+    // 购买自己的商品异常处理
+    @ExceptionHandler(SelfPurchaseProhibitedException.class)
+    public ResultJsonData<Void> selfPurchaseProhibitedException(){
+        return ResultJsonData.fali(ReturnCodeEnum.RC1003.getCode(), ReturnCodeEnum.RC1003.getMessage());
+    }
+
+    // 商品库存不足异常处理
+    @ExceptionHandler(ProductNotInCartException.class)
+    public ResultJsonData<Void> productNotInCartException(){
+        return ResultJsonData.fali(ReturnCodeEnum.RC1002.getCode(), ReturnCodeEnum.RC1002.getMessage());
+    }
+
+    // 商品库存不足异常处理
+    @ExceptionHandler(InventoryShortageException.class)
+    public ResultJsonData<Void> inventoryShortageException(){
+        return ResultJsonData.fali(ReturnCodeEnum.RC1001.getCode(), ReturnCodeEnum.RC1001.getMessage());
+    }
+
+    // 聊天用户id字段不能为空异常处理
+    @ExceptionHandler(ChatUserFieldCannotEmptyException.class)
+    public ResultJsonData<Void> chatUserFieldCannotEmptyException(){
+        return ResultJsonData.fali(ReturnCodeEnum.RC5021.getCode(), ReturnCodeEnum.RC5021.getMessage());
+    }
+
+
+    // 用户已签到异常处理
+    @ExceptionHandler(SignedInException.class)
+    public ResultJsonData<Void> signedInException(){
+        return ResultJsonData.fali(ReturnCodeEnum.RC5020.getCode(), ReturnCodeEnum.RC5020.getMessage());
+    }
+
+    // 收货地址信息不存在异常处理
+    @ExceptionHandler(DeliveryAddressDoesNotExistException.class)
+    public ResultJsonData<Void> deliveryAddressDoesNotExistException(){
+        return ResultJsonData.fali(ReturnCodeEnum.RC5019.getCode(), ReturnCodeEnum.RC5019.getMessage());
+    }
+
+
+    // 收货地址id不能为空异常处理
+    @ExceptionHandler(ShippingAddressIDCannotBeEmptyException.class)
+    public ResultJsonData<Void> shippingAddressIDCannotBeEmptyException(){
+        return ResultJsonData.fali(ReturnCodeEnum.RC5018.getCode(), ReturnCodeEnum.RC5018.getMessage());
+    }
+
+
+    // 密码不能为空异常处理
+    @ExceptionHandler(PasswordCannotEmptyException.class)
+    public ResultJsonData<Void> passwordCannotEmptyException(){
+        return ResultJsonData.fali(ReturnCodeEnum.RC2006.getCode(), ReturnCodeEnum.RC2006.getMessage());
+    }
+
+
+    // 购物车信息不存在常处理
+    @ExceptionHandler(ShoppingCartInfoNull.class)
+    public ResultJsonData<Void> shoppingCartInfoNull(){
+        return ResultJsonData.fali(ReturnCodeEnum.RC5017.getCode(), ReturnCodeEnum.RC5017.getMessage());
+    }
+
+    // 购物车id为空异常处理
+    @ExceptionHandler(ShoppingCartIdNotNull.class)
+    public ResultJsonData<Void> shoppingCartIdNotNull(){
+        return ResultJsonData.fali(ReturnCodeEnum.RC5016.getCode(), ReturnCodeEnum.RC5016.getMessage());
+    }
+
+    // 收藏商品已存在异常处理
+    @ExceptionHandler(CollectCommodityExisted.class)
+    public ResultJsonData<Void> ollectCommodityExisted(){
+        return ResultJsonData.fali(ReturnCodeEnum.RC5014.getCode(), ReturnCodeEnum.RC5014.getMessage());
+    }
+
+    // 收藏商品id不能为空异常处理
+    @ExceptionHandler(CollectCommodityIdNotNull.class)
+    public ResultJsonData<Void> ollectCommodityIdNotNull(){
+        return ResultJsonData.fali(ReturnCodeEnum.RC5015.getCode(), ReturnCodeEnum.RC5015.getMessage());
+    }
+
+
+    // 商品状态错误异常
+    @ExceptionHandler(StatusException.class)
+    public ResultJsonData<Void> statusException(){
+        return ResultJsonData.fali(ReturnCodeEnum.RC5013.getCode(), ReturnCodeEnum.RC5013.getMessage());
+    }
+
 
     // 商品不存在异常处理
     @ExceptionHandler(CommodityDoesNotExistException.class)
@@ -40,6 +136,15 @@ public class GlobalExceptionHandler {
 
         return ResultJsonData.fali(4500, errors.toString());
     }
+
+
+
+    // 文件上传失败异常处理
+    @ExceptionHandler(FileUploadException.class)
+    public ResultJsonData<Void> FileUploadException(){
+        return ResultJsonData.fali(ReturnCodeEnum.RC3004.getCode(), ReturnCodeEnum.RC3004.getMessage());
+    }
+
 
 
     // 文件类型错误异常处理

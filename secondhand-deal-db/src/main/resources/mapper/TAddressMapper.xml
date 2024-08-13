@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ziheng.deal.db.mapper.TAddressMapper">
+
+    <resultMap id="BaseResultMap" type="com.ziheng.deal.db.entity.TAddress">
+            <id property="addressId" column="address_id" jdbcType="INTEGER"/>
+            <result property="userId" column="user_id" jdbcType="INTEGER"/>
+            <result property="addressName" column="address_name" jdbcType="VARCHAR"/>
+            <result property="contact" column="contact" jdbcType="VARCHAR"/>
+            <result property="province" column="province" jdbcType="BIGINT"/>
+            <result property="city" column="city" jdbcType="BIGINT"/>
+            <result property="area" column="area" jdbcType="BIGINT"/>
+            <result property="street" column="street" jdbcType="BIGINT"/>
+            <result property="fullAddress" column="full_address" jdbcType="VARCHAR"/>
+            <result property="defaultAddress" column="default_address" jdbcType="INTEGER"/>
+            <result property="createUser" column="create_user" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="DATE"/>
+            <result property="modifiedUser" column="modified_user" jdbcType="VARCHAR"/>
+            <result property="modifiedTime" column="modified_time" jdbcType="DATE"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        address_id,user_id,address_name,
+        contact,province,city,
+        area,street,full_address,
+        default_address,create_user,create_time,
+        modified_user,modified_time
+    </sql>
+    <!--根据用户id查询所有的收货地址-->
+    <select id="getAllAddress" resultType="com.ziheng.deal.common.domain.DTO.AddressDTO">
+        SELECT
+            t_address.address_id as id,
+            t_address.address_name as name,
+            t_address.contact,
+            t_address.full_address,
+            t_address.default_address as status,
+            t_address.province as province_code,
+            t_address.city as city_code,
+            t_address.area as area_code,
+            t_address.street as street_code,
+            province.name AS province_name,
+            city.name AS city_name,
+            area.name AS area_name,
+            street.name AS street_name
+        FROM
+            t_address
+        LEFT JOIN
+            province AS province
+        ON
+            t_address.province = province.code
+        LEFT JOIN
+            province AS city
+        ON
+            t_address.city = city.code
+        LEFT JOIN
+            province AS area
+        ON
+            t_address.area = area.code
+        LEFT JOIN
+            province AS street
+        ON
+            t_address.street = street.code
+        WHERE
+            t_address.user_id = #{id};
+    </select>
+</mapper>

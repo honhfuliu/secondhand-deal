@@ -1,5 +1,5 @@
 <template>
-  <div style="height: 40px; width: 100%; background-color: rgb(227, 228, 229)">
+  <div style="height: 40px; width: 100%; background-color: #f5f5f5">
     <el-menu
       mode="horizontal"
       background-color="rgb(227, 228, 229)"
@@ -20,7 +20,7 @@
       </el-menu-item>
 
       <el-menu-item>
-        <el-link :underline="false">首页</el-link>
+        <el-link :underline="false" href="/">首页</el-link>
       </el-menu-item>
 
       <el-menu-item>

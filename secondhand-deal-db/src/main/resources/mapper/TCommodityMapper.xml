@@ -49,6 +49,7 @@
             t_commodity.c_price,
             t_commodity.c_number,
             t_commodity.buy_number,
+            t_commodity.reject_reason,
             t_commodity.create_time as create_data,
             commodity_picture.p_path as img_path
         FROM
@@ -71,8 +72,73 @@
 
     </select>
 
+    <!--分页获取到所有未审核的商品-->
+    <select id="getPaginationCommodity" resultType="com.ziheng.deal.common.domain.DTO.commodityListDTO">
+        SELECT
+            t_commodity.c_id AS id,
+            t_commodity.c_status AS status,
+            t_commodity.commodity_title,
+            t_commodity.c_price,
+            t_commodity.create_time AS create_data,
+            commodity_picture.p_path AS img_path
+        FROM
+            t_commodity
+        LEFT JOIN
+            commodity_picture
+        ON
+            t_commodity.c_id = commodity_picture.commodity_id
+        WHERE
+            t_commodity.c_status = 0
+        AND
+            commodity_picture.is_display_picture = 1
+    </select>
 
+    <!--随机获取40个商品展示到首页-->
+    <select id="getCommodity" resultType="com.ziheng.deal.common.domain.DTO.commodityDisplayDTO">
+        SELECT
+            t_commodity.c_id as id,
+            t_commodity.commodity_title,
+            t_commodity.c_price,
+            t_commodity.buy_number,
+            commodity_picture.p_path as img_path
+        FROM
+            t_commodity
+        LEFT JOIN
+            commodity_picture
+        ON
+            t_commodity.c_id = commodity_picture.commodity_id
+        WHERE
+            commodity_picture.is_display_picture = 1
+        AND
+            t_commodity.c_status = 2
+        order by rand() limit 40;
+    </select>
 
+    <select id="searchCommodity" resultType="com.ziheng.deal.common.domain.DTO.commodityDisplayDTO">
+        SELECT
+            t_commodity.c_id as id,
+            t_commodity.commodity_title,
+            t_commodity.c_price,
+            t_commodity.buy_number,
+            commodity_picture.p_path as img_path
+        FROM
+            t_commodity
+        LEFT JOIN
+            commodity_picture
+        ON
+            t_commodity.c_id = commodity_picture.commodity_id
+        WHERE
+        <if test="commodityClassifyId != null">
+            (t_commodity.commodity_title LIKE "%"#{searchPageVO.searchName}"%" OR t_commodity.classify_id = #{commodityClassifyId})
+        </if>
+        <if test="commodityClassifyId == null">
+            t_commodity.commodity_title LIKE "%"#{searchPageVO.searchName}"%"
+        </if>
+          AND
+            commodity_picture.is_display_picture = 1
+          AND
+            t_commodity.c_status = 2
+    </select>
 
 
 </mapper>

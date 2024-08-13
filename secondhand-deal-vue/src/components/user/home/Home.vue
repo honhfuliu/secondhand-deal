@@ -9,11 +9,11 @@
         </div>
 
         <div style="width: 60%; display: flex">
-          <div  @click="showInfo= 1">
-            <h2 style="margin: 26px 18px; color: #FFFFFF; font-family: cursive">信息首页</h2>
+          <div>
+            <h2 style="margin: 26px 18px; color: #FFFFFF; font-family: cursive; cursor: pointer;">信息首页</h2>
           </div>
-          <div @click="showInfo= 2">
-            <h2 style="margin: 26px 0; color: #ffffff; font-family: cursive">账号设置</h2>
+          <div>
+            <h2 style="margin: 26px 0; color: #ffffff; font-family: cursive; cursor: pointer;" @click="skipRouterPath('Settings')">账号设置</h2>
           </div>
         </div>
 
@@ -23,8 +23,8 @@
 
     <div>
       <!--信息start-->
-      <div v-show="showInfo === 1" style="width: 80%; height: 100%;margin: 135px auto">
-        <el-container style="height: 100%">
+      <div v-show="showInfo === 1" style="width: 80%; margin: 135px auto; ">
+        <el-container >
           <el-aside width="135px">
             <el-menu
               background-color="#FFFFFF"
@@ -45,7 +45,7 @@
               </el-menu-item>
 
               <el-menu-item>
-                <span slot="title" class="span1">我的购物车</span>
+                <span slot="title" class="span1" @click="skipWindow('/shoppingCart')">我的购物车</span>
               </el-menu-item>
 
               <el-menu-item>
@@ -57,7 +57,7 @@
               </el-menu-item>
 
               <el-menu-item>
-                <span slot="title" class="span1">我的收藏</span>
+                <span slot="title" class="span1" @click="skipWindow('/collect')">我的收藏</span>
               </el-menu-item>
 
               <el-menu-item>
@@ -81,13 +81,6 @@
         </el-container>
       </div>
       <!--信息end-->
-
-      <!--账号设置start-->
-      <div v-show="showInfo === 2">
-        <h1>人才2</h1>
-      </div>
-      <!--账号设置end-->
-
     </div>
 
   </div>
@@ -109,6 +102,17 @@ export default {
   },
 
   methods:{
+    skipRouterPath(path){
+      this.$router.push({name: path})
+    },
+
+    // 点击跳转到新的页面
+    skipWindow(path) {
+     const { href } = this.$router.resolve({
+       path: path
+     })
+      window.open(href)
+    }
 
   }
 }

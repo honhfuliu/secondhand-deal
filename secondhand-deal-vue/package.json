@@ -18,7 +18,9 @@
     "axios": "^1.5.0",
     "element-ui": "^2.15.14",
     "is-plain-object": "^5.0.0",
+    "swiper": "^5.4.5",
     "vue": "^2.5.2",
+    "vue-awesome-swiper": "^4.1.1",
     "vue-router": "^3.0.1",
     "vue-table-with-tree-grid": "^0.2.4",
     "wangeditor": "^4.7.15"

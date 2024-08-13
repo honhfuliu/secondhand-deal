@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ziheng.deal.db.mapper.ChatListMapper">
+
+    <resultMap id="BaseResultMap" type="com.ziheng.deal.db.entity.ChatList">
+            <id property="chatId" column="chat_id" jdbcType="INTEGER"/>
+            <result property="friendId" column="friend_id" jdbcType="INTEGER"/>
+            <result property="myId" column="my_id" jdbcType="INTEGER"/>
+            <result property="createdTime" column="created_time" jdbcType="TIMESTAMP"/>
+            <result property="updatedTime" column="updated_time" jdbcType="TIMESTAMP"/>
+            <result property="isDelete" column="is_delete" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        chat_id,friend_id,my_id,
+        created_time,updated_time,is_delete
+    </sql>
+    <select id="getByUserIdChatLists" resultType="com.ziheng.deal.common.domain.DTO.ChatListDTO">
+        SELECT
+            t_user.u_id AS id,
+            t_user.nickname AS nick_name,
+            t_user.username AS name,
+            t_user.avatar AS img,
+            latest_message.message as end_message,
+            latest_message.create_time as end_time
+        FROM
+            t_user
+                LEFT JOIN chat_list ON t_user.u_id = chat_list.friend_id
+                LEFT JOIN (
+                SELECT
+                    sub.sender_id,
+                    sub.receiver_id,
+                    sub.message,
+                    sub.create_time
+                FROM
+                    chat_message sub
+                        JOIN (
+                        SELECT
+                            GREATEST(sender_id, receiver_id) AS user1,
+                            LEAST(sender_id, receiver_id) AS user2,
+                            MAX(create_time) AS latest_create_time
+                        FROM
+                            chat_message
+                        GROUP BY
+                            GREATEST(sender_id, receiver_id),
+                            LEAST(sender_id, receiver_id)
+                    ) latest ON
+                            (sub.sender_id = latest.user1 AND sub.receiver_id = latest.user2 AND sub.create_time = latest.latest_create_time) OR
+                            (sub.sender_id = latest.user2 AND sub.receiver_id = latest.user1 AND sub.create_time = latest.latest_create_time)
+            ) AS latest_message ON
+                    (latest_message.sender_id = t_user.u_id AND latest_message.receiver_id = chat_list.my_id) OR
+                    (latest_message.sender_id = chat_list.my_id AND latest_message.receiver_id = t_user.u_id)
+        WHERE
+            chat_list.my_id = #{userId}
+        ORDER BY
+            latest_message.create_time DESC
+    </select>
+</mapper>

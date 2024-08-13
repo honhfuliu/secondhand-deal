@@ -11,7 +11,6 @@ import TreeTable from 'vue-table-with-tree-grid'
 
 
 
-
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 Vue.component('tree-table', TreeTable)

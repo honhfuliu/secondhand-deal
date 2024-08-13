@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 @Data
 public class CommodityDTO {
+    private Integer cId; // 商品的id
 
     private String classificationName; // 商品分类名称
 
@@ -37,6 +38,7 @@ public class CommodityDTO {
 
     private BigDecimal cPrice; // 价格
 
+    private Integer buyNumber; // 销量
 
     private Integer cNumber; // 数量
 

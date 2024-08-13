@@ -22,7 +22,7 @@ public class InterceptorConfigurer implements WebMvcConfigurer {
         List<String> WhitelistPaths = Arrays.asList(
                 "/reg/**/**",
                 "/upload/**",
-//                "/commodity/**",
+                "/commodity/show", // 首页商品展示
                 "/reg/recover/code/v",
                 "/admin/**",
                 "/error",

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ziheng.deal.db.mapper.ChatMessageMapper">
+
+    <resultMap id="BaseResultMap" type="com.ziheng.deal.db.entity.ChatMessage">
+            <id property="messageId" column="message_id" jdbcType="INTEGER"/>
+            <result property="friendId" column="friend_id" jdbcType="INTEGER"/>
+            <result property="myId" column="my_id" jdbcType="INTEGER"/>
+            <result property="type" column="type" jdbcType="OTHER"/>
+            <result property="message" column="message" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="status" column="status" jdbcType="OTHER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        message_id,friend_id,my_id,
+        type,message,create_time,
+        status
+    </sql>
+
+    <select id="getUserChatInformation" resultType="com.ziheng.deal.common.domain.DTO.ChatUserMessageDTO">
+        SELECT
+            chat_message.type,
+            chat_message.message,
+            CASE
+                WHEN chat_message.receiver_id = #{myId} THEN 0
+                ELSE 1
+                END AS sort
+        FROM
+            chat_message
+        WHERE
+            (chat_message.sender_id = #{myId} OR chat_message.sender_id = #{friendId})
+          AND
+            (chat_message.receiver_id = #{myId} OR chat_message.receiver_id = #{friendId})
+        ORDER BY
+            create_time
+    </select>
+</mapper>

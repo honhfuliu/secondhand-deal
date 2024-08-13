@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ziheng.deal.db.mapper.CommodityCollectMapper">
+
+    <resultMap id="BaseResultMap" type="com.ziheng.deal.db.entity.CommodityCollect">
+            <id property="collectId" column="collect_id" jdbcType="INTEGER"/>
+            <result property="isDelete" column="is_delete" jdbcType="INTEGER"/>
+            <result property="collectTime" column="collect_time" jdbcType="DATE"/>
+            <result property="userId" column="user_id" jdbcType="INTEGER"/>
+            <result property="commodityId" column="commodity_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        collect_id,is_delete,collect_time,
+        user_id,commodity_id
+    </sql>
+    <select id="getByUserIdCollectCommodity"
+            resultType="com.ziheng.deal.common.domain.DTO.CollectCommodityDTO">
+        SELECT
+            t_commodity.commodity_title as title,
+            t_commodity.c_id as id,
+            t_commodity.c_price ,
+            commodity_picture.p_path as img_path,
+            t_commodity.c_status as status
+        FROM
+            commodity_collect
+        LEFT JOIN
+            t_commodity
+        ON
+            commodity_collect.commodity_id = t_commodity.c_id
+        LEFT JOIN
+            commodity_picture
+        ON
+            t_commodity.c_id = commodity_picture.commodity_id
+        WHERE
+            commodity_collect.user_id = #{id}
+        AND
+            commodity_collect.is_delete = 0
+        AND
+            commodity_picture.is_display_picture = 1;
+    </select>
+
+</mapper>

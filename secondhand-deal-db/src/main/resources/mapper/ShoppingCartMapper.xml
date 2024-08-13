@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ziheng.deal.db.mapper.ShoppingCartMapper">
+
+    <resultMap id="BaseResultMap" type="com.ziheng.deal.db.entity.ShoppingCart">
+            <id property="shoppingId" column="shopping_id" jdbcType="INTEGER"/>
+            <result property="shoppingNumber" column="shopping_number" jdbcType="INTEGER"/>
+            <result property="shoppingStatus" column="shopping_status" jdbcType="INTEGER"/>
+            <result property="shoppingPrice" column="shopping_price" jdbcType="DECIMAL"/>
+            <result property="shoppingTime" column="shopping_time" jdbcType="DATE"/>
+            <result property="shoppingUpdate" column="shopping_update" jdbcType="DATE"/>
+            <result property="userId" column="user_id" jdbcType="INTEGER"/>
+            <result property="commodityId" column="commodity_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        shopping_id,shopping_number,shopping_status,
+        shopping_price,shopping_time,shopping_update,
+        user_id,commodity_id
+    </sql>
+    <select id="getByUserIdObtainShoppingCartCommodfity"
+            resultType="com.ziheng.deal.common.domain.DTO.shoppingCartDTO">
+        SELECT
+            t_commodity.commodity_title as title,
+            t_commodity.c_price as unit_price,
+            t_commodity.c_id as status,
+            shopping_cart.shopping_id as id,
+            shopping_cart.shopping_number as number,
+            shopping_cart.shopping_price total_price,
+            commodity_picture.p_path as img_path
+        FROM
+            shopping_cart
+        LEFT JOIN
+            t_commodity
+        ON
+            shopping_cart.commodity_id = t_commodity.c_id
+        LEFT JOIN
+            commodity_picture
+        ON
+            t_commodity.c_id = commodity_picture.commodity_id
+        WHERE
+            shopping_cart.user_id = #{userId}
+          AND
+            commodity_picture.is_display_picture = 1
+          AND
+            t_commodity.c_status = 2
+          AND
+            shopping_cart.shopping_status = 0
+    </select>
+    <select id="getByUserIdObtainNoAvailShoppingCartCommodfity"
+            resultType="com.ziheng.deal.common.domain.DTO.shoppingCartDTO">
+        SELECT
+            t_commodity.commodity_title as title,
+            t_commodity.c_price as unit_price,
+            shopping_cart.shopping_id as id,
+            shopping_cart.shopping_number as number,
+            shopping_cart.shopping_price total_price,
+            commodity_picture.p_path as img_path
+        FROM
+            shopping_cart
+                LEFT JOIN
+            t_commodity
+            ON
+                shopping_cart.commodity_id = t_commodity.c_id
+                LEFT JOIN
+            commodity_picture
+            ON
+                t_commodity.c_id = commodity_picture.commodity_id
+        WHERE
+            shopping_cart.user_id = #{userId}
+          AND
+            commodity_picture.is_display_picture = 1
+          AND
+            shopping_cart.shopping_status = 0
+          AND
+            (t_commodity.c_status = 0 OR t_commodity.c_status = 1 OR t_commodity.c_status = 3)
+
+    </select>
+</mapper>

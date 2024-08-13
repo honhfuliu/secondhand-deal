@@ -1,7 +1,7 @@
 <template>
-  <div style="margin-top: 73px">
+  <div style="position: fixed; top: 145px; z-index: 999; width: 70%">
     <!--头部start-->
-    <div style="position: fixed; top: 145px; z-index: 999">
+    <div >
       <el-row>
         <el-col>
           <el-form :inline="true" style="float: right">
@@ -34,10 +34,11 @@
 
 
     <!--表格start-->
-    <div style="margin-top: 127px">
+    <div >
       <!--表格start-->
       <el-table
         :header-cell-style="{ fontSize: '15px', background: '#f7fafd', color: 'black', textAlign: 'center'}"
+        max-height="640"
         :data="commodityList"
       >
         <el-table-column label="商品名称"  width="500">
@@ -65,10 +66,10 @@
         <el-table-column label="发布时间" sortable align="center" prop="createData"></el-table-column>
         <el-table-column label="状态" align="center" >
           <template v-slot="scope">
-            <el-tag type="success" v-if="scope.row.status === 0">待审核</el-tag>
+            <el-tag v-if="scope.row.status === 0">待审核</el-tag>
             <el-tag type="danger" v-else-if="scope.row.status === 1">商品违规</el-tag>
             <el-tag type="success" v-else-if="scope.row.status === 2">上架</el-tag>
-            <el-tag type="success" v-else-if="scope.row.status === 3">下架</el-tag>
+            <el-tag type="warning" v-else-if="scope.row.status === 3">下架</el-tag>
             <el-tag type="danger" v-else>状态错误</el-tag>
           </template>
         </el-table-column>
@@ -76,8 +77,10 @@
           <template v-slot="scope">
             <div style="display: grid">
               <el-link :underline="false" @click="getByIdCommodityInfo(scope.row.id)">修改商品</el-link>
-              <el-link :underline="false">删除商品</el-link>
-              <el-link v-if="scope.row.status === 2" :underline="false">违规原因</el-link>
+              <el-link :underline="false" @click="getByIdCommodityDelete(scope.row.id)">删除商品</el-link>
+              <el-link v-if="scope.row.status === 1" :underline="false" @click="rejectReason(scope.row.rejectReason)">违规原因</el-link>
+              <el-link :underline="false" v-if="scope.row.status === 2">下架商品</el-link>
+              <el-link :underline="false" v-if="scope.row.status === 3">上架商品</el-link>
             </div>
           </template>
         </el-table-column>
@@ -152,6 +155,29 @@ export default {
   },
 
   methods: {
+    // 违规原因显示
+    rejectReason(value){
+      alert(value)
+    },
+
+    // 根据id删除商品
+    getByIdCommodityDelete(id){
+      this.$axios({
+        url: `/commodity/d/${id}`,
+        method: "post",
+        headers: {
+          token: sessionStorage.getItem("token")
+        }
+      }).then(msg => {
+        if (msg.data.code === 200) {
+          alert("删除成功")
+          location.reload()
+        } else {
+          alert(msg.data.message)
+        }
+      })
+
+    },
 
     // 根据id获取到商品信息
     getByIdCommodityInfo(id) {
@@ -215,9 +241,9 @@ export default {
 </script>
 
 <style scoped>
-.el-table__footer-wrapper, .el-table__header-wrapper{
+::v-deep .header1{
   position: fixed;
-  top: 194px;
+  top: 190px;
 }
 
 </style>

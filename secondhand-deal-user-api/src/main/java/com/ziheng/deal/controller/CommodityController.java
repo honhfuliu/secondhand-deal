@@ -2,8 +2,10 @@ package com.ziheng.deal.controller;
 
 import com.ziheng.deal.common.domain.DTO.CommodityDTO;
 import com.ziheng.deal.common.domain.DTO.PageDOT;
+import com.ziheng.deal.common.domain.DTO.commodityDisplayDTO;
 import com.ziheng.deal.common.domain.TokenInfo;
 import com.ziheng.deal.common.domain.VO.commodityPageQueryVO;
+import com.ziheng.deal.common.domain.VO.commoditySearchPageVO;
 import com.ziheng.deal.common.resp.ResultJsonData;
 import com.ziheng.deal.common.util.TokenUtil;
 import com.ziheng.deal.common.domain.VO.CommodityVO;
@@ -137,6 +139,11 @@ public class CommodityController {
         return  ResultJsonData.success(dot);
     }
 
+    /**
+     * 根据商品id获取到商品的详情信息
+     * @param id 商品id
+     * @return 商品详情信息
+     */
     @GetMapping("{id}")
     @Operation(summary = "根据商品id获取到商品的详情信息")
     public ResultJsonData<CommodityDTO> getByIdCommodityInfo(@PathVariable("id") Integer id){
@@ -144,6 +151,71 @@ public class CommodityController {
         return ResultJsonData.success(dto);
 
     }
+
+    /**
+     * 商品基本信息修改
+     * @param commodityVO 信息列表
+     * @return OK
+     */
+    @PostMapping("UpdateInfo")
+    @Operation(summary = "商品基本信息修改")
+    public ResultJsonData<Void> UpdatecommodityInfo(@Valid @RequestBody CommodityVO commodityVO)
+    {
+        String token = servletRequest.getHeader("token");
+        TokenInfo info = tokenUtil.getTokenTuser(token);
+
+        commodityService.getByCommodityIdUpdate(commodityVO, info);
+
+        return ResultJsonData.success();
+    }
+
+    /**
+     *根据id删除商品信息
+     * @param id 商品id
+     * @return OK
+     */
+    @PostMapping("d/{id}")
+    @Operation(summary = "根据商品id获取到商品的详情信息")
+    public ResultJsonData<Void> getByIdDeleteCommodity(@PathVariable("id") Integer id){
+        String token = servletRequest.getHeader("token");
+        TokenInfo info = tokenUtil.getTokenTuser(token);
+
+        commodityService.getByIdDeleteCommodity(id, info.getUId());
+        return ResultJsonData.success();
+
+    }
+
+    /**
+     * 随机获取40条数据展示首页
+     * @return 商品数据
+     */
+    @GetMapping("show")
+    @Operation(summary = "随机获取40条数据展示首页")
+    public  ResultJsonData<List<commodityDisplayDTO>> getCommodity(){
+        List<commodityDisplayDTO> commodity = commodityService.getCommodity();
+        return ResultJsonData.success(commodity);
+    }
+
+    /**
+     * 根据id查询商品信息
+     * @param id 商品id
+     * @return 商品信息
+     */
+    @GetMapping("show/{id}")
+    @Operation(summary = "根据商品id获取商品详情信息")
+    public  ResultJsonData<CommodityDTO> getByIdCommodityDetalisInfo(@PathVariable("id") Integer id){
+        CommodityDTO dto = commodityService.getByIdDetailsInfo(id);
+        return ResultJsonData.success(dto);
+    }
+
+    @GetMapping("search")
+    @Operation(summary = "搜素商品")
+    public ResultJsonData<PageDOT<commodityDisplayDTO>> searchCommodity(commoditySearchPageVO commoditySearchPageVO){
+        PageDOT<commodityDisplayDTO> dot = commodityService.searchCommodity(commoditySearchPageVO);
+        return ResultJsonData.success(dot);
+    }
+
+
 
 
 

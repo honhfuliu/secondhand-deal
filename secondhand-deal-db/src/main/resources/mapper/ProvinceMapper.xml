@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ziheng.deal.db.mapper.ProvinceMapper">
+
+    <resultMap id="BaseResultMap" type="com.ziheng.deal.db.entity.Province">
+            <id property="code" column="code" jdbcType="BIGINT"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="level" column="level" jdbcType="TINYINT"/>
+            <result property="pcode" column="pcode" jdbcType="BIGINT"/>
+            <result property="category" column="category" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        code,name,level,
+        pcode,category
+    </sql>
+    <select id="getAllProvince" resultType="com.ziheng.deal.common.domain.DTO.provinceDTO">
+        SELECT
+            code,
+            name
+        FROM
+            province
+        WHERE
+            province.level = 1
+    </select>
+
+    <select id="getCityCodeAllArea" resultType="com.ziheng.deal.common.domain.DTO.provinceDTO">
+        select
+            code,
+            name
+        FROM
+            province
+        WHERE
+            province.pcode = #{code}
+          AND
+            province.level = 3
+    </select>
+
+    <select id="getProvinceCodeAllCity" resultType="com.ziheng.deal.common.domain.DTO.provinceDTO">
+        select
+            code,
+            name
+        FROM
+            province
+        WHERE
+            province.pcode = #{code}
+          AND
+            province.level = 2
+    </select>
+
+    <select id="getAreaAllResidentialDistrict" resultType="com.ziheng.deal.common.domain.DTO.provinceDTO">
+        select
+            code,
+            name
+        FROM
+            province
+        WHERE
+            province.pcode = #{code}
+          AND
+            province.level = 4
+    </select>
+</mapper>

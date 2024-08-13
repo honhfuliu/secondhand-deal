@@ -87,9 +87,18 @@
                 <i class="el-icon-location"></i>
                 <span>商品管理</span>
               </template>
-              <el-menu-item index="/systemManage/systemHome/commodityClassification">
+              <el-menu-item index="/systemManage/systemHome/commodityClassification" style="margin-left: 20px">
                 <i class="el-icon-menu"></i>
                 <span slot="title">商品分类</span>
+              </el-menu-item>
+
+              <el-menu-item index="" style="margin-left: 20px">
+                <i class="el-icon-menu"></i>
+                <span slot="title">所有商品</span>
+              </el-menu-item>
+              <el-menu-item index="/systemManage/systemHome/commodityExamine" style="margin-left: 33px">
+                <i class="el-icon-menu"></i>
+                <span slot="title">待审核商品</span>
               </el-menu-item>
             </el-submenu>
 

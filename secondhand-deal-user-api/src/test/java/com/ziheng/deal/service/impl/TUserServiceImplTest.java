@@ -6,8 +6,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.util.DigestUtils;
 
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class TUserServiceImplTest {
     @Autowired
     TUserService userService;
@@ -42,5 +43,18 @@ class TUserServiceImplTest {
         String token = userService.UserLogin(userRegisterVO);
         System.out.println(token);
     }
+
+    @Test
+    void test06(){
+        String password = "123456";
+        String salt = "05711FB0-5564-4776-B786-D573FD88B15A";
+
+        for (int i = 0; i < 3; i++) {
+            password = DigestUtils.md5DigestAsHex((salt + password + salt).getBytes()).toUpperCase();
+        }
+    }
+
+
+
 
 }

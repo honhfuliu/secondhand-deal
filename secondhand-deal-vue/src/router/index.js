@@ -20,6 +20,7 @@ const routes = [
       roles: "user"
     }
   },
+
   {
     path: '/home',
     name: 'Home',
@@ -46,9 +47,62 @@ const routes = [
           title: "商品查询"
         }
       },
+
     ]
 
   },
+
+  // 个人账号信息设置
+  {
+    path: '/settings',
+    name: 'Settings',
+    component: ()=> import("../components/user/accountSettings/AccountSettings.vue"),
+    redirect: "/acquiesce1",
+
+    children: [
+      // home默认显示
+      {
+        path: '/acquiesce1',
+        name: 'Acquiesce1',
+        component: () => import("../components/user/accountSettings/Acquiesce1/Acquiesce1.vue"),
+        meta: {
+          title: "默认页面"
+        }
+      },
+
+      // 个人信息修改
+      {
+        path: "/updateInfo",
+        name: "UpdateInfo",
+        component: () => import("../components/user/accountSettings/updateInfo/UpdateInfo.vue"),
+        meta: {
+          title: "个人信息"
+        }
+      },
+
+      // 个人密码修改页面
+      {
+        path: "/updatePasswd",
+        name: "UpdatePassword",
+        component: () => import("../components/user/accountSettings/updatePassword/updatePassword.vue"),
+        meta: {
+          title: "密码修改"
+        }
+      },
+
+      // 我的收货地址
+      {
+        path: "/address",
+        name: "Address",
+        component: () => import("../components/user/accountSettings/MyAddress/MyAddress.vue"),
+        meta: {
+          title: "我的收货地址"
+        }
+      },
+    ]
+
+  },
+
 
   //商品发布路由
   {
@@ -61,6 +115,82 @@ const routes = [
     }
   },
 
+  // 用户聊天
+  {
+    path: "/chat",
+    name: "UserChat",
+    component: () => import("../components/user/UserChat/userChat.vue"),
+    meta: {
+      title: "用户聊天"
+    }
+  },
+
+
+  {
+    path: "/demo",
+    component: () => import("../components/user/demo.vue")
+  },
+
+  // 商品详情路由
+  {
+    path: '/commodityDetails',
+    name: 'CommodityDetails',
+    component: () => import("../components/user/commodityDisplay/commodityDisplay.vue"),
+    meta: {
+      title: "商品详情"
+    }
+  },
+
+  // 商品搜索路由
+  {
+    path: "/search",
+    name: "Search",
+    component: () => import("../components/user/commoditySearch/commoditySearch.vue"),
+    meta: {
+      title: "商品搜索",
+    }
+
+  },
+
+  // 我的收藏页面跳转
+  {
+    path: "/collect",
+    name: "Collect",
+    component: () => import("../components/user/CollectCommodity/collectCommodity.vue"),
+    meta: {
+      title: "我的收藏"
+    }
+  },
+
+  // 购物车
+  {
+    path: "/shoppingCart",
+    name: "ShoppingCart",
+    component: () => import("../components/user/shoppingCart/shoppingCart.vue"),
+    meta: {
+      title: "我的购物车"
+    }
+  },
+
+  // 创建购物订单
+  {
+    path: "/createOrder",
+    name: "CreateShoppingOrder",
+    component: ()=> import("../components/user/createShoppingOrder/createShoppingOrder.vue"),
+    meta: {
+      title: "创建订单"
+    }
+  },
+
+  // 订单支付页面
+  {
+    path: "/orderPay",
+    name: "OrderPay",
+    component: ()=> import("../components/user/orderPay/orderPay.vue"),
+    meta: {
+      title: "订单支付"
+    }
+  },
 
   {
     path: '/Common',
@@ -115,17 +245,43 @@ const routes = [
         children: [
           {
             path: "systemLog",
-            component: () => import("../components/admin/systemLog/systemLog.vue")
+            component: () => import("../components/admin/systemLog/systemLog.vue"),
+            name: 'SystemLog',
+            meta: {
+              title: "日志管理"
+            }
           },
           {
             path: "commodityClassification",
-            component: () => import("../components/admin/commodityClassification/commodityClassification.vue")
-          }
+            component: () => import("../components/admin/commodityClassification/commodityClassification.vue"),
+            name: 'CommodityClassification',
+            meta: {
+              title: "分类添加"
+            }
+          },
+          {
+            path: "commodityExamine",
+            component: () => import("../components/admin/commodityExamine/commodityExamine.vue"),
+            name: 'CommodityExamine',
+            meta: {
+              title: "商品审核"
+            }
+
+          },
 
         ]
 
       }
     ]
+  },
+  // 商品审核页面
+  {
+    path: '/commodityVerify',
+    name: 'CommodityVerify',
+    component: () => import("../components/admin/commodityExamine/commodityVerifyDisplay/commodityVerifyDisplay.vue"),
+    meta: {
+      title: "商品审核页面"
+    }
   }
 
 ]

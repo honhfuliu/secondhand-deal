@@ -105,7 +105,7 @@
     <div style="margin-top: 20px; display: flex;justify-content: center">
       <el-menu
         mode="horizontal"
-        background-color="rgb(244, 244, 244)"
+        background-color="#f3f6f8"
 
         active-text-color="#ffffff">
         <el-menu-item>

@@ -9,7 +9,8 @@ import java.util.ArrayList;
 
 @Data
 public class CommodityVO {
-    @NotNull(message = "商品分类不能为空")
+    private Integer cId; // 商品的id
+
     private Integer classifyId; // 商品分类
 
     @NotBlank(message = "商品标题不能为空")

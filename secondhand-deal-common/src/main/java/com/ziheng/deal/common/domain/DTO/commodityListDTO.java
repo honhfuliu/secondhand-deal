@@ -21,6 +21,7 @@ public class commodityListDTO {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createData; // 创建时间
     private String imgPath; // 展示图地址
+    private String rejectReason; // 商品违规原因
 
 
 }
