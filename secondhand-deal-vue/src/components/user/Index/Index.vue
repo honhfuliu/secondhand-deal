@@ -291,7 +291,7 @@
               <el-link :underline="false" class="el-link-h" @click="commodityDetails(item.id)">
                 <div>
                   <div>
-                    <img :src="`http://127.0.0.1:8989/${item.imgPath}`" class="div-img">
+                    <img :src="`${URL}/${item.imgPath}`" class="div-img">
                   </div>
                   <div style="width: 280px; margin-bottom: 20px">
                     <span class="title-span">{{ item.commodityTitle }}</span>
@@ -358,11 +358,14 @@ export default {
 
       // 商品展示数据存储
       commodityShow: [],
+
+      URL: null,
     }
   },
 
   created() {
     this.getCommodity()
+    this.URL = this.$axios.defaults.baseURL
   },
 
   methods:{

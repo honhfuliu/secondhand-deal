@@ -33,7 +33,7 @@
                     <el-link :underline="false">
                       <el-row>
                         <el-col :span="7">
-                          <img :src="`http://127.0.0.1:8989/${scope.row.imgPath}`" class="img-1">
+                          <img :src="`${URL}/${scope.row.imgPath}`" class="img-1">
                         </el-col>
                         <el-col :span="15">
                           <span class="span-title">{{scope.row.title}}</span>
@@ -84,7 +84,7 @@
                     <el-link :underline="false">
                       <el-row>
                         <el-col :span="7">
-                          <img :src="`http://127.0.0.1:8989/${scope.row.imgPath}`" class="img-1">
+                          <img :src="`${URL}/${scope.row.imgPath}`" class="img-1">
                         </el-col>
                         <el-col :span="15">
                           <span class="span-title">{{scope.row.title}}</span>
@@ -137,7 +137,7 @@
 
             <div style="display: flex; flex-wrap: wrap; width: 96%; margin: auto" v-else>
               <div class="div-j" v-for="item in SettlementList" key="item">
-                <img :src="`http://127.0.0.1:8989/${item.imgPath}`" style="width: 90px; border-radius: 12px">
+                <img :src="`${URL}/${item.imgPath}`" style="width: 90px; border-radius: 12px">
               </div>
 
             </div>
@@ -198,12 +198,15 @@ export default {
       NoAvailShoppingCartData: [],
 
       // 结算商品信息存储
-      SettlementList: []
+      SettlementList: [],
+
+      URL: null,
     }
   },
   created() {
     this.getShoppingCartInfo()
     this.getShoppingCartInfoNoAvail()
+    this.URL = this.$axios.defaults.baseURL
   },
 
   methods:{

@@ -7,8 +7,9 @@
       active-text-color="#ffffff">
       <el-menu-item style=" margin: 0 500px;">
         <div>
-          <el-link :underline="false">
-            用户名称00001
+          <el-link :underline="false" style="font-size: 15px">
+            <span>用户名称:&nbsp;</span>
+            <span>{{ username }}</span>
           </el-link>
         </div>
 
@@ -24,11 +25,11 @@
       </el-menu-item>
 
       <el-menu-item>
-        <el-link :underline="false">购物车</el-link>
+        <el-link :underline="false" @click="skipPage('ShoppingCart')">购物车</el-link>
       </el-menu-item>
 
       <el-menu-item>
-        <el-link :underline="false">收藏夹</el-link>
+        <el-link :underline="false" @click="skipPage('Collect')">收藏夹</el-link>
       </el-menu-item>
 
       <el-menu-item>
@@ -47,7 +48,31 @@
 
 <script>
 export default {
-  name: "HomeCommon"
+  name: "HomeCommon",
+  data(){
+    return{
+      username: null,
+    }
+  },
+   created() {
+    this.username =  sessionStorage.getItem("username")
+   },
+  methods:{
+    skipPage(page){
+      let token = sessionStorage.getItem("token");
+      if (token !== null) {
+        this.$router.push({
+          name: page
+        })
+      } else {
+        alert("用户未登录")
+        this.$router.push({
+          name: "Login"
+        })
+      }
+    }
+
+  }
 }
 </script>
 

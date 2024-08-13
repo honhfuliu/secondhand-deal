@@ -6,27 +6,28 @@
 
       active-text-color="#ffffff">
       <el-menu-item style=" margin: 0 500px;">
-        <div>
-          <el-link :underline="false">
+
+        <div v-show="username === null">
+          <el-link :underline="false" href="/login">
             <span>您好，</span>
             <span style="color: red">请登录</span>
           </el-link>
-          <el-link style="margin-left: 10px" :underline="false">免费注册</el-link>
+          <el-link style="margin-left: 10px" :underline="false" href="/reg">免费注册</el-link>
         </div>
 
-        <div style="display: none">
-
-
+        <div v-show="username !== null">
+          <span style="font-size: 15px">您好，</span>
+          <span style="font-size: 15px">{{ username }}</span>
         </div>
 
       </el-menu-item>
 
       <el-menu-item>
-        <el-link :underline="false">我的订单</el-link>
+        <el-link :underline="false" @click="skipPage('Home')">我的订单</el-link>
       </el-menu-item>
 
       <el-menu-item>
-        <el-link :underline="false">我的商品</el-link>
+        <el-link :underline="false" @click="skipPage('CommodityShow')">我的商品</el-link>
       </el-menu-item>
 
       <el-menu-item>
@@ -49,7 +50,31 @@
 
 <script>
 export default {
-  name: "Common"
+  name: "Common",
+  data(){
+    return{
+      username: null
+    }
+  },
+  created() {
+     this.username =  sessionStorage.getItem("username");
+  },
+
+  methods:{
+    skipPage(page){
+      let token = sessionStorage.getItem("token");
+      if (token !== null) {
+        this.$router.push({
+          name: page
+        })
+      } else {
+        alert("用户未登录")
+        this.$router.push({
+          name: "Login"
+        })
+      }
+    }
+  }
 }
 </script>
 

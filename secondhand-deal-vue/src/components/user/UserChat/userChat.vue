@@ -6,7 +6,7 @@
         <el-header class="header-a" height="70px">
           <div style="display: flex" >
             <div>
-              <img :src="`http://127.0.0.1:8989/${myInfo.path}`" class="img-a">
+              <img :src="`${URL}/${myInfo.path}`" class="img-a">
             </div>
             <div style="line-height: 70px; width: 240px">
               <span style="margin-left: 15px; color: #FFFFFF; font-size: 17px">{{ myInfo.name }}</span>
@@ -30,7 +30,7 @@
             <div >
               <div @click="getChatMessage(item, $event)" tabindex="1" class="chat-list" v-for="item in chatList" :key="item">
                 <div>
-                  <img :src="`http://127.0.0.1:8989/${item.img}`" style="height: 60px; margin-top: 10px; margin-left: 13px">
+                  <img :src="`${URL}/${item.img}`" style="height: 60px; margin-top: 10px; margin-left: 13px">
                 </div>
 
                 <div style="margin-left: 20px; width: 100px">
@@ -56,13 +56,13 @@
                 <div class="chatBox" >
                   <div  v-for="item in my_message" :key="item">
                     <div class="message frnd_message"  v-if="item.sort === 0">
-                      <img :src="`http://127.0.0.1:8989/${chatUser.img}`" style="height: 60px; border-radius: 50%; margin: 9px 7px">
+                      <img :src="`${URL}/${chatUser.img}`" style="height: 60px; border-radius: 50%; margin: 9px 7px">
                       <p> {{item.message}}</p>
                     </div>
 
                     <div class="message my_message"  v-show="item.sort === 1">
                       <p>{{item.message}}</p>
-                      <img :src="`http://127.0.0.1:8989/${myInfo.path}`" style="height: 60px; border-radius: 50%; margin: 9px 7px">
+                      <img :src="`${URL}/${myInfo.path}`" style="height: 60px; border-radius: 50%; margin: 9px 7px">
                     </div>
 
                   </div>
@@ -122,7 +122,9 @@ export default {
 
 
       // 当前聊天用户信息存储
-      my_message: []
+      my_message: [],
+
+      URL: null,
     }
 
   },
@@ -131,6 +133,7 @@ export default {
     this.getUserInfo()
     this.getChatList()
     this.connect()
+    this.URL = this.$axios.defaults.baseURL
   },
 
   methods:{

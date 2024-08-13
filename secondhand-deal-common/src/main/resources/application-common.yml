@@ -1,7 +1,7 @@
 #手机注册登录配置
 sms:
-  accessKeyId: LTAI5tNgW6wvNViEJVBmHEeM
-  accessKeySecret: aScZFGsSjJOPT7Bq4Y6uIaWR3FWXaA
+  accessKeyId: 123456
+  accessKeySecret: 123456
 
   # 注册验证码模版配置
   register:
@@ -26,7 +26,7 @@ spring:
     # 发送邮件的账户
     username: ziheng870@163.com
     #授权码
-    password: HOZXYKSWXCNRSMPH
+    password: 123456
     default-encoding: utf-8
     # 服务协议 smtp为发送邮件
     protocol: smtp

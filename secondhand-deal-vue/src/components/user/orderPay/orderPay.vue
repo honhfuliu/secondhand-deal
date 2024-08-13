@@ -123,6 +123,9 @@ export default {
       }).then(msg => {
         if (msg.data.code === 200) {
           alert("支付成功")
+          this.$router.push({
+            name: "Home"
+          })
         } else {
           this.$notify.warning({
             title: "警告",

@@ -67,7 +67,7 @@
                   <template v-slot="scope">
                     <div style="display: flex; justify-content: space-between">
                       <div>
-                        <img :src="`http://127.0.0.1:8989/${scope.row.path}`" alt="" style="width: 70px">
+                        <img :src="`${URL}/${scope.row.path}`" alt="" style="width: 70px">
                       </div>
                       <div>
                         <span class="title-span">{{scope.row.title}}</span>
@@ -399,13 +399,14 @@ export default {
       // 所有街道信息存储
       residentialDistrictList: [],
 
+      URL: null,
     }
   },
   created() {
     this.getUserAddress()
     this.CommodityOrderInfo()
     this.getUserAcquisition()
-
+    this.URL = this.$axios.defaults.baseURL
   },
   mounted() {
     window.addEventListener('popstate', () => {

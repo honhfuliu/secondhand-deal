@@ -15,7 +15,7 @@ Vue.config.productionTip = false
 Vue.use(ElementUI)
 Vue.component('tree-table', TreeTable)
 
-axios.defaults.baseURL = "http://localhost:8989"
+axios.defaults.baseURL = "http://192.168.129.140:8989"
 // 将axios挂载到vue对象中
 Vue.prototype.$axios = axios
 

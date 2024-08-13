@@ -26,7 +26,7 @@
                 <div class="div-in" v-for="item in collectList" :key="item">
                   <el-link :underline="false" >
                     <div style="margin-bottom: 8px" @mouseenter="enter(item.id)" @mouseleave="leave(item.id)">
-                      <img :src="`http://127.0.0.1:8989/${item.imgPath}`" class="img-dis">
+                      <img :src="`${URL}/${item.imgPath}`" class="img-dis">
                       <i class="el-icon-delete i-i" v-if="item.id === controlDelete" @click="collectCommodityDelete(item.id)"></i>
                     </div>
                     <div @click="commodityShow(item.id)">
@@ -64,7 +64,7 @@
                      v-if="item.status === 3">
                   <el-link :underline="false">
                     <div style="margin-bottom: 8px"  @mouseenter="enter(item.id)" @mouseleave="leave(item.id)">
-                      <img :src="`http://127.0.0.1:8989/${item.imgPath}`" class="img-dis">
+                      <img :src="`${URL}/${item.imgPath}`" class="img-dis">
                       <i class="el-icon-delete i-i" v-if="item.id === controlDelete" @click="collectCommodityDelete(item.id)"></i>
                     </div>
                     <div style="margin-bottom: 8px">
@@ -119,10 +119,13 @@ export default {
       // 收藏商品存储
       collectList: [],
 
+      URL: null,
+
     }
   },
   created() {
     this.getCollectCommodity()
+    this.URL = this.$axios.defaults.baseURL
   },
 
   methods:{

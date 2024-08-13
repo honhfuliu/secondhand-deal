@@ -70,7 +70,7 @@
                   </el-col>
                   <el-col :span="14">
                     <div>
-                      <img :src="`http://127.0.0.1:8989/${userInfo.path}`" style="width: 134px; border-radius: 5px">
+                      <img :src="`${URL}/${userInfo.path}`" style="width: 134px; border-radius: 5px">
                     </div>
                   </el-col>
                 </el-row>
@@ -149,12 +149,15 @@ export default {
       // 获取当前时间
       today: null,
 
+      URL: null,
+
     }
   },
 
   created() {
     this.today = this.getToDay()
     this.getInfo()
+    this.URL = this.$axios.defaults.baseURL
   },
 
   methods:{
