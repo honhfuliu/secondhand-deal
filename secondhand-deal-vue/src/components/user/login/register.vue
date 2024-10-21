@@ -65,6 +65,23 @@ export default {
 
   data() {
     return {
+      rules: {
+        username: [
+          { required: true, message: "请输入用户名", trigger: "blur" },
+          { min: 5, max: 18, message: "长度在6-18个字符之间", trigger: "blur" }
+        ],
+        password: [
+          { required: true, message: "请输入密码", trigger: "blur" },
+          { min: 6, max: 25, message: "长度在6-25个字符之间", trigger: "blur" }
+        ],
+        email: [
+          { required: true, message: "请输入邮箱", trigger: "blur" },
+        ],
+        code: [
+          { required: true, message: "验证码不能为空", trigger: "blur" },
+        ]
+      },
+
       // 验证码相关属性
       isSend: false,  //禁用
       codeName: "发送验证码",
@@ -93,6 +110,26 @@ export default {
   methods: {
     // 提交用户名和密码
     submitInfo(){
+      if (this.smsRegDataInfo.password === null || this.smsRegDataInfo.password === "") {
+        alert("密码不能为空");
+        return false;
+      }
+      if (this.smsRegDataInfo.againPassword === "" || this.smsRegDataInfo.againPassword === null) {
+        alert("密码不能为空");
+        return false;
+      }
+      if  (this.smsRegDataInfo.password !== this.smsRegDataInfo.againPassword) {
+        alert("两次输入密码不相同")
+        return false;
+      }
+      if (this.smsRegDataInfo.username === null || this.smsRegDataInfo.username === ""){
+        alert("账号不能为空")
+        return false
+      }
+      if (this.smsRegData.email === null || this.smsRegData.email === ""){
+        alert("邮箱不能为空")
+        return false
+      }
       const data = {
         email : this.smsRegData.email,
         username: this.smsRegDataInfo.username,
@@ -114,6 +151,14 @@ export default {
 
     // 提交验证码
     submitCode(){
+      if (this.smsRegData.email === null || this.smsRegData.email === ""){
+        alert("邮箱不能为空")
+        return false
+      }
+      if (this.smsRegData.code === null || this.smsRegData.code === ""){
+        alert("验证码不能为空")
+        return false
+      }
       this.$axios({
         url: "/reg/code",
         method: "post",
@@ -129,6 +174,11 @@ export default {
 
     // 发送验证码
     sendEmail() {
+      if (this.smsRegData.email === null || this.smsRegData.email === ""){
+        alert("邮箱不能为空")
+        location.reload();
+        return false
+      }
       this.$axios({
         url: "/reg/send",
         method: "post",
@@ -137,6 +187,7 @@ export default {
         console.log(msg.data)
         if (msg.data.code === 200) {
           this.isSend = true
+          alert(msg.data.message)
         } else {
           alert(msg.data.message)
           // 刷新页面

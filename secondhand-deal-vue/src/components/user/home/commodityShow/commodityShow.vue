@@ -23,7 +23,7 @@
 
             <el-form-item >
               <el-button @click="getCommodityInfo">查询</el-button>
-              <el-button>重置</el-button>
+              <el-button @click="refresh">重置</el-button>
             </el-form-item>
 
           </el-form>
@@ -49,13 +49,13 @@
               </div>
 
               <div style="margin: 30px 20px">
-                <span style="font-size: 19px">{{ scope.row.commodityTitle }}</span>
+                <span style="font-size: 19px" class="title_s">{{ scope.row.commodityTitle }}</span>
               </div>
 
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="价格"  sortable align="center"  prop="cprice"></el-table-column>
+        <el-table-column label="价格"  sortable align="center"  prop="price"></el-table-column>
         <el-table-column label="库存" sortable align="center" prop="cnumber"></el-table-column>
         <el-table-column label="总销量" sortable align="center" prop="buyNumber">
           <template v-slot="scope">
@@ -79,8 +79,8 @@
               <el-link :underline="false" @click="getByIdCommodityInfo(scope.row.id)">修改商品</el-link>
               <el-link :underline="false" @click="getByIdCommodityDelete(scope.row.id)">删除商品</el-link>
               <el-link v-if="scope.row.status === 1" :underline="false" @click="rejectReason(scope.row.rejectReason)">违规原因</el-link>
-              <el-link :underline="false" v-if="scope.row.status === 2">下架商品</el-link>
-              <el-link :underline="false" v-if="scope.row.status === 3">上架商品</el-link>
+              <el-link :underline="false" v-if="scope.row.status === 2" @click="removedFromShelvesCommodity(scope.row.id)">下架商品</el-link>
+              <el-link :underline="false" v-if="scope.row.status === 3" @click="onShelvesCommodity(scope.row.id)">上架商品</el-link>
             </div>
           </template>
         </el-table-column>
@@ -155,9 +155,50 @@ export default {
   },
 
   methods: {
+    // 重置
+    refresh(){
+      location.reload();
+    },
+
     // 违规原因显示
     rejectReason(value){
       alert(value)
+    },
+
+    // 下架商品
+    removedFromShelvesCommodity(id){
+      this.$axios({
+        url: `/commodity/removedFromShelves/${id}`,
+        method: "post",
+        headers: {
+          token: sessionStorage.getItem("token")
+        }
+      }).then(msg => {
+        if (msg.data.code === 200) {
+          alert(msg.data.message)
+          location.reload()
+        } else {
+          alert(msg.data.message)
+        }
+      })
+    },
+
+    // 上架商品
+    onShelvesCommodity(id){
+      this.$axios({
+        url: `/commodity/onShelvesCommodity/${id}`,
+        method: "post",
+        headers: {
+          token: sessionStorage.getItem("token")
+        }
+      }).then(msg => {
+        if (msg.data.code === 200) {
+          alert(msg.data.message)
+          location.reload()
+        } else {
+          alert(msg.data.message)
+        }
+      })
     },
 
     // 根据id删除商品
@@ -241,6 +282,16 @@ export default {
 </script>
 
 <style scoped>
+.title_s{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  font-size: 18px;
+  color: black;
+}
+
 ::v-deep .header1{
   position: fixed;
   top: 190px;

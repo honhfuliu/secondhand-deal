@@ -28,7 +28,7 @@
                   width="55">
                 </el-table-column>
 
-                <el-table-column width="400">
+                <el-table-column width="370">
                   <template  v-slot="scope">
                     <el-link :underline="false">
                       <el-row>
@@ -45,18 +45,28 @@
 
                 <el-table-column width="200">
                   <template  v-slot="scope">
+                    <div v-for="(values ,key) in scope.row.commoditySku" :key="key">
+                      <span style="font-weight: 600" >{{ key }}</span>
+                      <span style="font-size: 16px; color: black; font-weight: 600">:</span>
+                      <span v-for="item in values" :key="item">{{ item }}</span>
+                    </div>
+                  </template>
+                </el-table-column>
+
+                <el-table-column width="120">
+                  <template  v-slot="scope">
                     <span class="span-price">￥{{ scope.row.unitPrice }}</span>
                   </template>
                 </el-table-column>
 
-                <el-table-column>
+                <el-table-column  >
                   <template  v-slot="scope">
                     <el-input-number v-model="scope.row.number" :min="1" :max="9999999"></el-input-number>
                   </template>
 
                 </el-table-column>
 
-                <el-table-column >
+                <el-table-column width="120">
                   <template  v-slot="scope">
                     <div style="display: grid">
                       <el-link :underline="false" @click="addCollect(scope.row.status)">移入到收藏夹</el-link>
@@ -94,7 +104,17 @@
                   </template>
                 </el-table-column>
 
-                <el-table-column width="150">
+                <el-table-column width="200">
+                  <template  v-slot="scope">
+                    <div v-for="(values ,key) in scope.row.commoditySku" :key="key">
+                      <span style="font-weight: 600" >{{ key }}</span>
+                      <span style="font-size: 16px; color: black; font-weight: 600">:</span>
+                      <span v-for="item in values" :key="item">{{ item }}</span>
+                    </div>
+                  </template>
+                </el-table-column>
+
+                <el-table-column width="80">
                   <template  v-slot="scope">
                     <span class="span-price">￥{{ scope.row.unitPrice }}</span>
                   </template>
@@ -107,7 +127,7 @@
 
                 </el-table-column>
 
-                <el-table-column >
+                <el-table-column width="80">
                   <template  v-slot="scope">
                     <div style="display: grid">
                       <el-link :underline="false" @click="deleteShoppingCart(scope.row.id)">删除</el-link>
@@ -220,7 +240,8 @@ export default {
           commodityId: this.SettlementList[i].status,
           unitPrice: this.SettlementList[i].unitPrice,
           totalPrice: this.SettlementList[i].totalPrice,
-          buyQuantity: this.SettlementList[i].number
+          buyQuantity: this.SettlementList[i].number,
+          commoditySku: this.SettlementList[i].commoditySku
         }
         SubmitData.push(itemInfo)
       }

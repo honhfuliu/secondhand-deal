@@ -4,7 +4,7 @@
 
     <!--主体start-->
     <div class="div1">
-      <div>
+      <div style="margin-bottom: 50px">
         <el-row>
           <!--商品展示图start-->
           <el-col :span="12">
@@ -29,17 +29,17 @@
           <!--商品展示图end-->
 
           <!--商品购买展示start-->
-          <el-col :span="12" style="height: 600px; margin-top: 72px">
+          <el-col :span="12" style="margin-top: 72px">
             <div style="float: left">
               <div>
                 <h1 class="title1" style="margin-right: 24px">{{ commodityInfo.commodityTitle }}</h1>
               </div>
               <div style="float: left;">
-                <span class="title_span" style="margin-bottom: 30px" v-if="commodityInfo.buyNumber === null">已售0</span>
-                <span class="title_span" style="margin-bottom: 30px" v-else>已售{{commodityInfo.buyNumber}}</span>
+                <span class="title_span" style="margin-bottom: 30px" v-if="commodityInfo.buyNumber === null">已售:0</span>
+                <span class="title_span" style="margin-bottom: 30px" v-else>已售:&nbsp;{{commodityInfo.buyNumber}}</span>
               </div>
 
-              <div style="height: 90px; background-color: #fcfaf7; margin-top: 58px; border-radius: 10px; margin-bottom: 30px">
+              <div style="height: 90px; background-color: #fcfaf7; margin-top: 58px; border-radius: 10px; margin-bottom: 10px">
                 <p style="color: red; float: left; margin: 30px">
                   <span class="span2">¥</span>
                   <span class="span3">{{ commodityInfo.cprice }}</span>
@@ -61,6 +61,26 @@
                   <span>:</span>
                   <span style="font-size: 17px; color: #11192d; margin-left: 5px">{{ commodityInfo.deliveryMethod }}</span>
                 </p>
+              </div>
+
+              <div style="width: 100%; float: left">
+                <div v-for="(values, key) in commodityInfo.commoditySkuHeader" :key="key">
+                  <div>
+                    <span class="span4 title_span" style="float: left; margin: 10px 0">{{ key }}</span>
+                    <span style="float: left; margin: 7px 4px">:</span>
+                  </div>
+
+                  <div style="display: flex; flex-wrap: wrap; width: 70%">
+                    <div
+                      tabindex="1"
+                      class="sku-div-header"
+                      :class="{ 'focus': selectedSkus[key] === value }"
+                      v-for="(value, index) in values"
+                      :key="index"
+                      @click="selectSku(key, value)"
+                    >{{ value }}</div>
+                  </div>
+                </div>
               </div>
 
 
@@ -219,6 +239,8 @@ export default {
 
   data(){
     return{
+      // 记录每个规格的选中状态
+      selectedSkus: {}, // 每个规格选中的值
       // 商品数据接收
       commodityInfo: null,
 
@@ -249,7 +271,17 @@ export default {
     this.CommodityInfo()
   },
 
+  computed: {
+
+  },
+
   methods:{
+    selectSku(specKey, specValue) {
+      console.log(specKey, specValue)
+      // 更新选中状态，只会改变当前规格的选中项
+      this.$set(this.selectedSkus, specKey, specValue);
+    },
+
     // 购买商品
     BuyCommodity(){
       // 数据处理
@@ -257,7 +289,8 @@ export default {
         commodityId: this.commodityInfo.cid,
         unitPrice: this.commodityInfo.cprice,
         totalPrice: this.commodityInfo.cprice * this.CommodityNumber,
-        buyQuantity: this.CommodityNumber
+        buyQuantity: this.CommodityNumber,
+        commoditySku: this.selectedSkus
       }
 
       // 发送请求
@@ -306,13 +339,33 @@ export default {
 
     // 商品购物车添加
     CommodityAddShoppingCart(){
+      let yuan = 0
+      let xian = 0
+      for (let commoditySkuHeaderKey in this.commodityInfo.commoditySkuHeader) {
+        yuan += 1
+      }
+
+      for(let sku in this.selectedSkus){
+        xian += 1
+      }
+      if (yuan !== xian) {
+        this.$notify.warning({
+          title: "警告",
+          message: "未选中商品规格"
+        })
+        return false;
+      }
       this.$axios({
         url: "shopping",
         method: "post",
         headers: {
           "token": sessionStorage.getItem("token")
         },
-        data: {"commodityId":this.commodityInfo.cid, "shoppingNumber": this.CommodityNumber}
+        data: {
+          "commodityId":this.commodityInfo.cid,
+          "shoppingNumber": this.CommodityNumber,
+          "commoditySku": this.selectedSkus
+        }
       }).then(msg => {
         if (msg.data.code === 200) {
           alert("加入购物车成功")
@@ -407,6 +460,20 @@ export default {
 </script>
 
 <style scoped>
+.sku-div-header{
+  margin: 6px 14px;
+  border: #c9bfbf 1px solid;
+  border-radius: 5px;
+  padding: 3px 11px;
+  cursor: pointer;
+}
+
+.sku-div-header.focus{
+  background-color: #FFFFFF;
+  border-color: #ff5000;
+  color: #ff5000;
+}
+
 .d{
   position: fixed;
   top: 0;
@@ -463,6 +530,7 @@ export default {
 }
 
 .span-name.focus{
+  background-color: #FFFFFF;
   color: red;
   font-weight: 600;
 }
@@ -506,7 +574,7 @@ export default {
 .li_item:hover{
   width:130px;
   height:88px;
-  border:3px solid #D94600;
+  border:2px solid #D94600;
   padding: 0px 17px;
   border-radius: 15px;
 }

@@ -37,7 +37,7 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="价格"  align="center" prop="cprice"></el-table-column>
+        <el-table-column label="价格"  align="center" prop="price"></el-table-column>
         <el-table-column label="状态"  align="center" >
           <template v-slot="scope">
             <el-tag type="success" v-if="scope.row.status === 0">待审核</el-tag>

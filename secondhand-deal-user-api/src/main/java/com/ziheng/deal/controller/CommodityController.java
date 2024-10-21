@@ -85,6 +85,40 @@ public class CommodityController {
         return map;
     }
 
+    /**
+     * 下架用户商品
+     * @param id 商品id
+     * @return OK
+     */
+    @PostMapping("/removedFromShelves/{id}")
+    @Operation(summary = "下架用户商品")
+    public ResultJsonData<Void> removedFromShelvesCommodity(@PathVariable("id") Integer id)
+    {
+        String token = servletRequest.getHeader("token");
+        TokenInfo info = tokenUtil.getTokenTuser(token);
+
+         commodityService.removedFromShelvesCommodity(id, info.getUId());
+
+        return  ResultJsonData.success();
+    }
+
+    /**
+     * 上架用户商品
+     * @param id 商品id
+     * @return OK
+     */
+    @PostMapping("/onShelvesCommodity/{id}")
+    @Operation(summary = "上架用户商品")
+    public ResultJsonData<Void> onShelvesCommodity(@PathVariable("id") Integer id)
+    {
+        String token = servletRequest.getHeader("token");
+        TokenInfo info = tokenUtil.getTokenTuser(token);
+
+        commodityService.onshelvesCommodity(id, info.getUId());
+
+        return  ResultJsonData.success();
+    }
+
 
     /**
      * 商品主图上传
@@ -214,6 +248,8 @@ public class CommodityController {
         PageDOT<commodityDisplayDTO> dot = commodityService.searchCommodity(commoditySearchPageVO);
         return ResultJsonData.success(dot);
     }
+
+
 
 
 

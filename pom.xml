@@ -30,12 +30,14 @@
         <jackson.version>2.11.2</jackson.version>
         <jakarta.validation.version>3.0.2</jakarta.validation.version>
         <pagehelper.version>2.0.0</pagehelper.version>
+        <snowflake.version>1.0.0</snowflake.version>
 
 
     </properties>
 
     <dependencyManagement>
         <dependencies>
+
 
 
             <!--pagehelper 分页插件-->

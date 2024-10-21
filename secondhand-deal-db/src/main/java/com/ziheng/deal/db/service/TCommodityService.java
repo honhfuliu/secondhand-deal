@@ -38,6 +38,12 @@ public interface TCommodityService extends IService<TCommodity> {
     // 根据商品id删除商品
     void getByIdDeleteCommodity(Integer commodityId, Integer userId);
 
+    // 下架商品
+    void removedFromShelvesCommodity(Integer commodityId, Integer userId);
+
+    // 上架商品
+    void onshelvesCommodity(Integer commodityId, Integer userId);
+
 
     // 随机获取到40条数据用于首页商品展示
     List<commodityDisplayDTO> getCommodity();
@@ -47,6 +53,7 @@ public interface TCommodityService extends IService<TCommodity> {
 
     // 商品搜素
     PageDOT<commodityDisplayDTO> searchCommodity(commoditySearchPageVO commoditySearch);
+
 
 
 

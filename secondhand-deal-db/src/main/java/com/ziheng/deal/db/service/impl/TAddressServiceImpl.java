@@ -51,8 +51,17 @@ public class TAddressServiceImpl extends ServiceImpl<TAddressMapper, TAddress>
         TAddress address = new TAddress();
         BeanUtil.copyProperties(addressVO, address);
 
+        // 查询当前用户是否有收货地址
+        LambdaQueryWrapper<TAddress> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(TAddress::getUserId, userId);
+        List<TAddress> addresses = addressMapper.selectList(wrapper);
+        if (addresses.size() == 0) {
+            address.setDefaultAddress(1);
+        } else {
+            address.setDefaultAddress(0);
+        }
+
         // 补全日志
-        address.setDefaultAddress(0);
         address.setUserId(userId);
         address.setCreateUser(createUser);
         address.setCreateTime(new Date());

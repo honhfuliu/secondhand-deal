@@ -1,5 +1,8 @@
 package com.ziheng.deal.service.impl;
 
+import com.ziheng.deal.common.domain.DTO.MyOrderDTO;
+import com.ziheng.deal.common.domain.DTO.PageDOT;
+import com.ziheng.deal.common.domain.VO.MyOrderVO;
 import com.ziheng.deal.common.domain.VO.ShoppingCartCommoditySettlementVO;
 import com.ziheng.deal.db.service.TOrderService;
 import jakarta.annotation.Resource;
@@ -17,6 +20,18 @@ import java.util.*;
 public class OrderTest {
     @Resource
     private TOrderService orderService;
+
+    @Test
+    void tes04(){
+        MyOrderVO orderVO = new MyOrderVO();
+        orderVO.setPageNo(1);
+        orderVO.setPageSize(5);
+        PageDOT<List<MyOrderDTO>> listPageDOT = orderService.showMyOrder(orderVO, 2);
+        System.out.println(listPageDOT.getTotal());
+        for (List<MyOrderDTO> dtos : listPageDOT.getList()) {
+            System.out.println(dtos);
+        }
+    }
 
     @Test
     void test03(){

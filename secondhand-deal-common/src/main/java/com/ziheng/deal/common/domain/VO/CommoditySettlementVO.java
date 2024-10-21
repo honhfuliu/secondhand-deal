@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 
 /**
  * 商品结算数据接收
@@ -22,4 +23,6 @@ public class CommoditySettlementVO {
     // 购买数量
     @NotNull(message = "购买数量不能为空")
     private Integer buyQuantity;
+    //商品sku规格
+    private HashMap<String, Object> commoditySku;
 }

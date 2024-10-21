@@ -12,11 +12,13 @@ import java.util.List;
 @Data
 public class CommodityOrderVO {
     private List<CommoditySettlementVO> commodityInfos; // 商品信息
+
+    @NotNull(message = "积分不能为空")
     private Integer integral; // 积分
 
+//    @NotNull(message = "使用积分商品不能为空")
     private Integer useIntegralId; // 使用积分的商品id
 
-    @NotNull(message = "是否使用积分不能为空")
     private boolean whetherIntegral; // 是否使用积分
 
     @NotNull(message = "收货地址不能为空")

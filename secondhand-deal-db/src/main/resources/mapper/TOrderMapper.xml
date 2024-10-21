@@ -11,6 +11,7 @@
             <result property="buyerId" column="buyer_id" jdbcType="INTEGER"/>
             <result property="commodityId" column="commodity_id" jdbcType="INTEGER"/>
             <result property="addressId" column="address_id" jdbcType="INTEGER"/>
+            <result property="skuId" column="sku_id" jdbcType="INTEGER"/>
             <result property="commodityNumber" column="commodity_number" jdbcType="INTEGER"/>
             <result property="commodityUnitPrice" column="commodity_unit_price" jdbcType="DECIMAL"/>
             <result property="whetherIntegral" column="whether_integral" jdbcType="DECIMAL"/>

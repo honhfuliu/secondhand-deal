@@ -48,6 +48,26 @@ const routes = [
         }
       },
 
+      // 待发货的订单
+      {
+        path: "/awaitingShipment",
+        name: "AwaitingShipment",
+        component: ()=> import("../components/user/home/ awaitingShipment/awaitingShipment.vue"),
+        meta: {
+          title: "待发货的订单"
+        }
+      },
+
+      //我的订单
+      {
+        path: "/order",
+        name: "MyOrder",
+        component: () => import("../components/user/home/MyOrder/MyOrder.vue"),
+        meta: {
+          title: "我的订单"
+        }
+      },
+
     ]
 
   },
@@ -233,6 +253,7 @@ const routes = [
       {
         path: "adminLogin",
         component: SystemLogin,
+        name: "AdminLogin",
         meta: {
           SystemLogin: true,
         },
@@ -293,32 +314,69 @@ const router =  new Router({
 
 })
 
-export default router
-
-/*
 router.beforeEach((to, from, next) => {
-  console.log(to.path)
-  if (to.matched.some(route => route.path.startsWith('/systemManage'))) {
-    if (to.path === "/systemManage/adminLogin") {
+  // console.log("sss",role)
+  console.log("to:", to)
+  console.log("from :", from)
+  // next()
+
+  if (to.matched[0].path === "/systemManage"){
+    if (to.name === "AdminLogin"){
       next()
     } else {
-      let adminToken = sessionStorage.getItem("adminToken");
-      if (adminToken) {
+      const adminToken = sessionStorage.getItem("adminToken")
+      const role = sessionStorage.getItem("Role")
+      if (adminToken === null || adminToken === ''){
+        next({name: "AdminLogin"})
+      }else if(role === null || role !== "admin"){
+        next("/")
+      }else {
         next()
-      } else {
-        next("/systemManage/adminLogin")
+      }
+
+    }
+  } else if(to.matched[0].path !== "/systemManage" && to.name !== "CommodityVerify") {
+    if (to.name === "Register" || to.name ===  "Login" || to.name === "RecoverPassword" || to.name === "Index"){
+      next();  // 继续执行访问的路由
+    } else {
+      const Token = sessionStorage.getItem("token")
+      const role = sessionStorage.getItem("Role")
+      if (Token === null || Token === ''){
+        next({name: "Login"})
+      }else if(role === null || role !== "user"){
+        next("/")
+      }else {
+        next()
       }
     }
-  } else if (to.path === "/" || to.path === "/reg" || to.path === "/recover") {
-    next()
-  } else {
-    let Token = sessionStorage.getItem("Token");
-    if (Token) {
-      next()
+
+  }else if(to.name === "CommodityVerify") {
+    const adminToken = sessionStorage.getItem("adminToken")
+    const role = sessionStorage.getItem("Role")
+    if (adminToken === null || adminToken === ''){
+      next({name: "AdminLogin"})
+    }else if(role === null || role !== "admin"){
+      next("/")
     }else {
-      next("/login")
+      next()
     }
   }
-})*/
+
+  else {
+    next()
+  }
+
+  // const role = sessionStorage.getItem("Role")
+  // console.log("sss",role)
+  // console.log("to:", to)
+  // console.log("from :", from)
+  //
+  // console.log("next:", next)
+})
+
+export default router
+
+
+
 
 

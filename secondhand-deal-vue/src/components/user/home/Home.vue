@@ -48,12 +48,12 @@
                 <span slot="title" class="span1" @click="skipWindow('/shoppingCart')">我的购物车</span>
               </el-menu-item>
 
-              <el-menu-item>
+              <el-menu-item index="/order">
                 <span slot="title" class="span1">已买到的宝贝</span>
               </el-menu-item>
 
-              <el-menu-item>
-                <span slot="title" class="span1">购买过的商家</span>
+              <el-menu-item  index="awaitingShipment">
+                <span slot="title" class="span1">待发货订单</span>
               </el-menu-item>
 
               <el-menu-item>

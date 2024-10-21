@@ -13,6 +13,7 @@
             <result property="shoppingUpdate" column="shopping_update" jdbcType="DATE"/>
             <result property="userId" column="user_id" jdbcType="INTEGER"/>
             <result property="commodityId" column="commodity_id" jdbcType="INTEGER"/>
+            <result property="skuId" column="sku_id" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">
@@ -24,22 +25,27 @@
             resultType="com.ziheng.deal.common.domain.DTO.shoppingCartDTO">
         SELECT
             t_commodity.commodity_title as title,
-            t_commodity.c_price as unit_price,
             t_commodity.c_id as status,
             shopping_cart.shopping_id as id,
             shopping_cart.shopping_number as number,
             shopping_cart.shopping_price total_price,
-            commodity_picture.p_path as img_path
+            commodity_picture.p_path as img_path,
+            commodity_sku.commodity_sku as stingSku,
+            commodity_sku.price as unit_price
         FROM
             shopping_cart
         LEFT JOIN
             t_commodity
-        ON
-            shopping_cart.commodity_id = t_commodity.c_id
+            ON
+                shopping_cart.commodity_id = t_commodity.c_id
         LEFT JOIN
             commodity_picture
-        ON
-            t_commodity.c_id = commodity_picture.commodity_id
+            ON
+                t_commodity.c_id = commodity_picture.commodity_id
+        LEFT JOIN
+            commodity_sku
+            ON
+                shopping_cart.sku_id = commodity_sku.sku_id
         WHERE
             shopping_cart.user_id = #{userId}
           AND
@@ -53,21 +59,27 @@
             resultType="com.ziheng.deal.common.domain.DTO.shoppingCartDTO">
         SELECT
             t_commodity.commodity_title as title,
-            t_commodity.c_price as unit_price,
+            t_commodity.c_id as status,
             shopping_cart.shopping_id as id,
             shopping_cart.shopping_number as number,
             shopping_cart.shopping_price total_price,
-            commodity_picture.p_path as img_path
+            commodity_picture.p_path as img_path,
+            commodity_sku.commodity_sku as stingSku,
+            commodity_sku.price as unit_price
         FROM
             shopping_cart
-                LEFT JOIN
+        LEFT JOIN
             t_commodity
             ON
                 shopping_cart.commodity_id = t_commodity.c_id
-                LEFT JOIN
+        LEFT JOIN
             commodity_picture
-            ON
-                t_commodity.c_id = commodity_picture.commodity_id
+          ON
+            t_commodity.c_id = commodity_picture.commodity_id
+        LEFT JOIN
+            commodity_sku
+          ON
+            shopping_cart.sku_id = commodity_sku.sku_id
         WHERE
             shopping_cart.user_id = #{userId}
           AND

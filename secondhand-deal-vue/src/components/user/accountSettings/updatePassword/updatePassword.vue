@@ -41,8 +41,8 @@
       </div>
 
       <div style="margin-bottom: 40px">
-        <el-form style="display: inline-flex">
-          <el-form-item  style="width: 300px; margin-right: 79px">
+        <el-form style="display: inline-flex" ref="from" :rules="rules">
+          <el-form-item  style="width: 300px; margin-right: 79px" prop="code">
             <el-input
               placeholder="请输入验证码"
               v-model="code"
@@ -127,6 +127,11 @@ export default {
       totalTime: 60, //一般是60
       timer:'', //定时器
 
+      rules: {
+        code: [
+          { required: true, message: "验证码不能为空", trigger: "blur" },
+        ]
+      },
     }
   },
 
@@ -183,7 +188,7 @@ export default {
         if (msg.data.code === 200) {
           this.step = 2
         } else {
-          alert(msg.data.code)
+          alert(msg.data.message)
         }
       })
     },

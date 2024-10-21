@@ -290,6 +290,7 @@ export default {
 }
 
 .next-span.focus{
+  background-color: #FFFFFF;
   color: red;
   font-weight: 600;
 }
@@ -322,6 +323,7 @@ export default {
 
 .div-img{
   width: 290px;
+  height: 290px;
   border-radius: 10px
 }
 

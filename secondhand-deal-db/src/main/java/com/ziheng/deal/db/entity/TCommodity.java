@@ -68,6 +68,11 @@ public class TCommodity extends BaseEntity implements Serializable {
     private String commodityType;
 
     /**
+     *  商品sku规格头
+     */
+    private String skuHeader;
+
+    /**
      * 商品价格
      */
     private BigDecimal cPrice;
@@ -168,6 +173,14 @@ public class TCommodity extends BaseEntity implements Serializable {
     }
 
     public TCommodity() {
+    }
+
+    public String getSkuHeader() {
+        return skuHeader;
+    }
+
+    public void setSkuHeader(String skuHeader) {
+        this.skuHeader = skuHeader;
     }
 
     public String getRejectReason() {

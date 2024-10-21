@@ -67,6 +67,26 @@
                 </p>
               </div>
 
+              <div style="width: 100%; float: left">
+                <div v-for="(values, key) in  Commodity.commoditySkuHeader" :key="key">
+                  <div>
+                    <span class="span4 title_span" style="float: left; margin: 10px 0">{{ key }}</span>
+                    <span style="float: left; margin: 7px 4px">:</span>
+                  </div>
+
+                  <div style="display: flex; flex-wrap: wrap; width: 70%">
+                    <div
+                      tabindex="1"
+                      class="sku-div-header"
+                      :class="{ 'focus': selectedSkus[key] === value }"
+                      v-for="(value, index) in values"
+                      :key="index"
+                      @click="selectSku(key, value)"
+                    >{{ value }}</div>
+                  </div>
+                </div>
+              </div>
+
 
               <div style="height: 50px; margin-bottom: 70px">
                 <p style="float: left">
@@ -218,6 +238,9 @@ export default {
 
   data() {
     return {
+
+      selectedSkus: {},
+
       // 商品展示图
       displayImg: null,
 
@@ -250,6 +273,7 @@ export default {
         shippingFees: null, // 配送费用
         commodityDetails: null, // 富文本信息
         buyNumber: 0, // 购买数量
+        commoditySkuHeader: null// 商品sku
       },
 
       // 审核数据提交
@@ -267,6 +291,12 @@ export default {
   },
 
   methods:{
+
+    selectSku(specKey, specValue) {
+      console.log(specKey, specValue)
+      // 更新选中状态，只会改变当前规格的选中项
+      this.$set(this.selectedSkus, specKey, specValue);
+    },
 
     // 商品审核数据提交
     commodityVerify(){
@@ -331,6 +361,10 @@ export default {
 
 
       this.Commodity.commodityDetails = decodedData.commodityDetails; // 副本文本信息
+
+      this.Commodity.commoditySkuHeader = decodedData.commoditySkuHeader;
+
+
     },
 
 
@@ -346,6 +380,20 @@ export default {
 </script>
 
 <style scoped>
+
+.sku-div-header{
+  margin: 6px 14px;
+  border: #c9bfbf 1px solid;
+  border-radius: 5px;
+  padding: 3px 11px;
+  cursor: pointer;
+}
+
+.sku-div-header.focus{
+  border-color: #ff5000;
+  color: #ff5000;
+}
+
 
 .div1 {
   width: 82%;

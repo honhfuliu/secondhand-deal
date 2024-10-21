@@ -1,9 +1,12 @@
 package com.ziheng.deal.controller;
 
+import com.ziheng.deal.common.domain.DTO.MyOrderDTO;
+import com.ziheng.deal.common.domain.DTO.PageDOT;
 import com.ziheng.deal.common.domain.DTO.SettlementCommodityDTO;
 import com.ziheng.deal.common.domain.TokenInfo;
 import com.ziheng.deal.common.domain.VO.CommodityOrderVO;
 import com.ziheng.deal.common.domain.VO.CommoditySettlementVO;
+import com.ziheng.deal.common.domain.VO.MyOrderVO;
 import com.ziheng.deal.common.domain.VO.ShoppingCartCommoditySettlementVO;
 import com.ziheng.deal.common.resp.ResultJsonData;
 import com.ziheng.deal.common.util.TokenUtil;
@@ -13,10 +16,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -34,6 +34,15 @@ public class ShoppingOrderController {
     @Resource
     private TOrderService orderService;
 
+
+    @GetMapping("")
+    @Operation(summary = "我的订单获取")
+    public ResultJsonData<PageDOT<List<MyOrderDTO>>> showMyOrder(MyOrderVO orderVO){
+        String token = httpServletRequest.getHeader("token");
+        TokenInfo tokenInfo = tokenUtil.getTokenTuser(token);
+        PageDOT<List<MyOrderDTO>> listPageDOT = orderService.showMyOrder(orderVO, tokenInfo.getUId());
+        return ResultJsonData.success(listPageDOT);
+    }
 
     @PostMapping("pay")
     @Operation(summary = "订单支付")

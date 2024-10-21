@@ -196,43 +196,111 @@
         </el-row>
         <!--商品类型end-->
 
-        <!--商品价格start-->
+        <!--商品规格sku start-->
         <el-row style="padding: 40px 0">
           <el-col :span="4">
             <span style="float: right; font-size: 20px">
-              *商品价格
+              *商品规格
             </span>
           </el-col>
-
-          <el-col :span="18" >
-            <el-input-number
-              :precision="2"
-              placeholder="请输入商品的价格"
-              style="margin: -3px 21px; width: 300px; float: left"
-              v-model="addCommodity.cprice"
-            ></el-input-number>
-          </el-col>
         </el-row>
-        <!--商品价格end-->
+        <div>
+          <div style="height: 40px; margin-bottom: 20px">
+            <div style="float: right; margin: 0 60px">
+              <el-button @click="addSku" round style="background-color: #b3e19d; color: #FFFFFF; font-weight: 600; font-size: 15px">添加规格</el-button>
+            </div>
+          </div>
 
-        <!--商品数量start-->
+          <div v-for="index in privateGoodsItem" :key="index">
+            <div style="width: 70%; margin: auto; background-color: #fff0f0; margin-bottom: 20px; border-radius: 10px">
+              <div>
+                <el-row>
+                  <el-col :span="18">
+                    <el-form :inline="true" style="margin-top: 25px" label-width="80px">
+                      <el-form-item label="规格名" style="display: flex">
+                        <el-input placeholder="请输入规格名" v-model="index.privateSpecName"></el-input>
+                      </el-form-item>
+                      <el-form-item label="规格值" style="display: flex">
+                        <el-tag size="medium" v-for="tag in index.dynamicTags" :key="tag" closable :disable-transitions="false" @close="delTag(index,tag)" style="margin: 0 7px; font-size: 17px; height: 32px; line-height: 30px;">
+                          {{ tag }}
+                        </el-tag>
+
+                        <el-dialog
+                          title="规格值添加"
+                          :visible.sync="index.inputVisible"
+                          width="30%">
+                          <div>
+                            <el-form :inline="true">
+                              <el-form-item label="规格值" >
+                                <el-input style="width: 270px" v-model="index.inputValue"></el-input>
+                              </el-form-item>
+                            </el-form>
+                          </div>
+                          <span slot="footer" class="dialog-footer">
+                            <el-button @click="dialogClose(index)">取 消</el-button>
+                            <el-button type="primary" @click="dialogConfirm(index)">确 定</el-button>
+                          </span>
+                        </el-dialog>
+                        <el-button size="mini" @click="showDialog(index)">添加</el-button>
+                      </el-form-item>
+                    </el-form>
+                  </el-col>
+                  <el-col :span="6" style="line-height: 140px">
+                    <el-link :underline="false" @click="delSku(index)">删除规格</el-link>
+                  </el-col>
+                </el-row>
+              </div>
+            </div>
+          </div>
+
+
+
+        </div>
+        <!--商品规格sku end-->
+
+        <!--商品规格价格库存start-->
         <el-row style="padding: 40px 0">
           <el-col :span="4">
             <span style="float: right; font-size: 20px">
-              *商品数量
+              价格/库存
             </span>
           </el-col>
-
-          <el-col :span="18" >
-            <el-input-number
-              placeholder="请输入商品的数量"
-              style="margin: -3px 21px; width: 300px; float: left"
-              v-model="addCommodity.cnumber"
-            ></el-input-number>
-          </el-col>
         </el-row>
-        <!--商品数量end-->
+        <div style="background-color: #77c5e3; width: 90%; margin: auto">
+          <el-table
+            :header-cell-style="{ fontSize: '15px', background: '#f7fafd', color: 'black', textAlign: 'center'}"
+            :data="tableColumnList.tableBodyList">
+            <el-table-column align="center" :label="item.propName" :property="item.prop" v-for="item in tableColumnList.tableHeaderList" :key="item.prop">
+              <template v-slot="scope">
+                <span>{{ scope.row[item.propName] }}</span>
+              </template>
+            </el-table-column>
 
+            <el-table-column label="价格" align="center">
+              <template v-slot="scope">
+                <el-input-number :min="1" :max="9999999" v-model="scope.row.price">
+
+                </el-input-number>
+              </template>
+            </el-table-column>
+
+            <el-table-column label="库存" align="center">
+              <template v-slot="scope">
+                <el-input-number :min="1" :max="9999999" v-model="scope.row.stock">
+
+                </el-input-number>
+              </template>
+            </el-table-column>
+            <el-table-column label="预警库存" align="center">
+              <template v-slot="scope">
+                <el-input-number :min="1" :max="9999999" v-model="scope.row.low_stock">
+
+                </el-input-number>
+              </template>
+            </el-table-column>
+          </el-table>
+        </div>
+        <!--商品规格展示end-->
 
         <!--配送方式start-->
         <el-row style="padding: 40px 0">
@@ -321,6 +389,20 @@ export default {
 
   data() {
     return{
+      tableColumnList: {
+        tableHeaderList: [],
+        tableBodyList: []
+      },
+
+      privateGoodsItem: [
+        {
+          privateSpecName: '', //规格名
+          dynamicTags: [], //规格值数组
+          inputVisible: false,
+          inputValue: ''
+        }
+      ],
+
       // 接收修改的数据参数
       commodityUpdateInfo: null,
 
@@ -360,12 +442,12 @@ export default {
         material: null, //材质
         suitableObject: null, //适用对象
         commodityType: null, //商品类型（成色）
-        cprice: null, //价格
-        cnumber: null, //数量
         deliveryMethod: null, //配送方式
         shippingFees: null, // 配送费用
         commodityPicturePaths: [], // 商品主图地址存储
         commodityDetails: null, // 富文本信息
+        commoditySku: null, // 商品sku
+        commodityHeader: null // 商品规格
       },
 
       //富文本编辑框配置
@@ -389,7 +471,7 @@ export default {
             server:  axios.defaults.baseURL + "/commodity/picture",
 
             // 单个文件的最大体积限制，默认为 2M
-            maxFileSize: 2 * 1024 * 1024, // 1M
+            maxFileSize: 1 * 1024 * 1024, // 1M
 
             // 请求头配置
             // 自定义增加 http  header
@@ -484,8 +566,156 @@ export default {
 
   },
 
+  watch: {
+    privateGoodsItem: {
+      handler(newVal) {
+        let cloneNewVal = JSON.parse(JSON.stringify(newVal))
+        // console.log('规格已更改:', cloneNewVal);
+        let attrName = [] //规格名数组
+        let attrValue = [] //规格值数组
+        for (let key in cloneNewVal) {
+          console.log("key666", key)
+          console.log("key6661", cloneNewVal[key].privateSpecName)
+          attrName.push(cloneNewVal[key].privateSpecName)
+          attrValue.push(cloneNewVal[key].dynamicTags)
+        }
+        // console.log("输出1" ,  attrName)
+        // console.log("输出2" ,  attrValue)
+        // 笛卡尔积
+        let finalArr =  this.cartesianProductOf(...attrValue)
+        // console.log("笛卡尔积" , finalArr)
+
+        let tableObj = {
+          tableBodyList: [],
+          tableHeaderList: []
+        }
+        /*
+        // 表格内容
+        tableObj.tableBodyList = finalArr.map((item) => {
+          console.log("item", item)
+          let obj = {
+            price: 0,
+            stock: 0,
+            low_stock: 0
+          }
+          for (let i = 0; i < item.length; i++) {
+            obj[attrName[i]] = item[i]
+          }
+          return obj
+        })
+        this.tableColumnList.tableBodyList = tableObj.tableBodyList //表格内容数据*/
+
+        // 表格内容
+        tableObj.tableBodyList = finalArr.map((item) => {
+          console.log("item", item);
+
+          // 使用默认值初始化对象
+          let obj = {
+            price: 0,
+            stock: 0,
+            low_stock: 0
+          };
+
+          // 在当前数据中找到对应的现有 SKU
+          let existingSku = this.tableColumnList.tableBodyList.find(skuItem => {
+            return attrName.every((name, index) => skuItem[name] === item[index]);
+          });
+
+          // 如果找到匹配的 SKU，保留其值
+          if (existingSku) {
+            obj.price = existingSku.price || obj.price;
+            obj.stock = existingSku.stock || obj.stock;
+            obj.low_stock = existingSku.low_stock || obj.low_stock;
+          }
+
+          // 将新的 SKU 属性分配给对象
+          for (let i = 0; i < item.length; i++) {
+            obj[attrName[i]] = item[i];
+          }
+
+          return obj;
+        });
+
+        this.tableColumnList.tableBodyList = tableObj.tableBodyList; // 表格内容数据
+
+        // 表头
+        let skuTableArr = Object.keys(newVal)
+        tableObj.tableHeaderList = skuTableArr.map((item) => {
+          console.log("item1", item)
+          return {
+            prop: item,
+            propName: attrName[item]
+          }
+        })
+        this.tableColumnList.tableHeaderList = tableObj.tableHeaderList // 表头
+
+        console.log("最终：", this.tableColumnList)
+      },
+      deep: true, // 深度监听，确保监听对象内部属性的变化
+    },
+  },
+
+
 
   methods:{
+    // 笛卡尔积计算sku规格组合
+    cartesianProductOf(...args) {
+      return args.reduce(
+        (total, current) => {
+          let ret = []
+          total.forEach((a) => {
+            current.forEach((b) => {
+              ret.push(a.concat([b]))
+            })
+          })
+          return ret
+        },
+        [[]]
+      )
+    },
+
+
+
+
+    // 商品sku
+    // 添加规格
+    addSku(index){
+      this.privateGoodsItem.push({
+        privateSpecName: '',
+        dynamicTags: [],
+        inputVisible: false,
+        inputValue: ''
+      })
+    },
+    // 删除规格
+    delSku(index){
+      this.privateGoodsItem.splice(index, 1)
+    },
+    // 规格值添加
+    showDialog(index){
+      index.inputVisible = true
+    },
+
+    // 取消添加规格
+    dialogClose(index){
+      index.inputVisible = false
+      index.inputValue = ''
+    },
+
+    // 规格添加
+    dialogConfirm(index){
+      index.inputVisible = false
+      index.dynamicTags.push(index.inputValue)
+      index.inputValue = ''
+    },
+
+    // 删除规格
+    delTag(index, tag){
+      index.dynamicTags.splice(index.dynamicTags.indexOf(tag), 1)
+    },
+
+
+
     // 修改商品详情信息接收，并赋值
     updateCommodityInfo(){
       const decodedData = JSON.parse(decodeURIComponent(this.$route.query.data));
@@ -535,6 +765,27 @@ export default {
 
 
       this.html = decodedData.commodityDetails; // 副本文本信息
+
+      // sku规格名
+      console.log("rencai:", decodedData.commoditySkuHeader)
+      let data = []
+      for (let key in decodedData.commoditySkuHeader) {
+        if (decodedData.commoditySkuHeader.hasOwnProperty(key)) { // 过滤掉原型链上的属性
+          let obj = {
+            privateSpecName: key,
+            dynamicTags: decodedData.commoditySkuHeader[key],
+            inputVisible: false,
+            inputValue: ''
+          }
+          data.push(obj)
+        }
+      }
+      this.privateGoodsItem = data
+
+      // 规格值
+      console.log(decodedData.commoditySkus)
+      this.tableColumnList.tableBodyList = decodedData.commoditySkus
+
     },
 
 
@@ -583,13 +834,10 @@ export default {
 
 
     // 判断是修改还是新增
-    estimateUpdateOrAdd()
-    {
-      if (this.addCommodity.cid === null)
-      {
+    estimateUpdateOrAdd() {
+      if (this.addCommodity.cid === null) {
         this.commoditySubmit()
-      } else
-      {
+      } else {
         this.UpdateCommodity()
       }
     },
@@ -642,6 +890,16 @@ export default {
               this.addCommodity.classifyId = this.classifyId1[this.classifyId1.length - 1];
             }
 
+            // 商品sku
+            this.addCommodity.commoditySku = this.tableColumnList.tableBodyList
+            // 商品sku规格
+            const header = []
+            this.privateGoodsItem.forEach(item =>{
+              const data = {[item.privateSpecName]: item.dynamicTags}
+              header.push(data)
+            })
+            this.addCommodity.commodityHeader = header
+
           } else {
             alert(pictureResponse.data.message);
             return false;
@@ -657,6 +915,16 @@ export default {
           } else {
             this.addCommodity.classifyId = this.classifyId1[this.classifyId1.length - 1];
           }
+
+          // 商品sku
+          this.addCommodity.commoditySku = this.tableColumnList.tableBodyList
+          // 商品sku规格
+          const header = []
+          this.privateGoodsItem.forEach(item =>{
+            const data = {[item.privateSpecName]: item.dynamicTags}
+            header.push(data)
+          })
+          this.addCommodity.commodityHeader = header
         }
 
         // 提交商品信息
@@ -714,6 +982,16 @@ export default {
           this.addCommodity.commodityDetails = this.html;
           console.log(this.classifyId1)
           this.addCommodity.classifyId = this.classifyId1[this.classifyId1.length - 1];
+          // 商品sku
+          this.addCommodity.commoditySku = this.tableColumnList.tableBodyList
+          // 商品sku规格
+          const header = []
+          this.privateGoodsItem.forEach(item =>{
+            const data = {[item.privateSpecName]: item.dynamicTags}
+            header.push(data)
+          })
+          this.addCommodity.commodityHeader = header
+
 
         } else {
           alert(pictureResponse.data.message);

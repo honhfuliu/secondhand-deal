@@ -13,11 +13,14 @@ import com.ziheng.deal.db.mapper.TCommodityMapper;
 import com.ziheng.deal.db.service.TCommodityService;
 import jakarta.annotation.Resource;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
 
-@SpringBootTest
+@SpringBootTest(webEnvironment =  SpringBootTest.WebEnvironment.RANDOM_PORT)
+@ExtendWith(SpringExtension.class)
 class TCommodityServiceImplTest {
     @Resource
     TCommodityService commodityService;
@@ -72,6 +75,7 @@ class TCommodityServiceImplTest {
 //            System.out.println(c1);
 //        }
         PageDOT byIdCommodityPageQuery = commodityService.getByIdCommodityPageQuery(c, 2);
+        System.out.println(byIdCommodityPageQuery);
     }
 
     @Test

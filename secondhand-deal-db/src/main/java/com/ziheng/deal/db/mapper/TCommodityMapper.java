@@ -4,6 +4,7 @@ import com.ziheng.deal.common.domain.DTO.commodityDisplayDTO;
 import com.ziheng.deal.common.domain.DTO.commodityListDTO;
 import com.ziheng.deal.common.domain.VO.commodityPageQueryVO;
 import com.ziheng.deal.common.domain.VO.commoditySearchPageVO;
+import com.ziheng.deal.db.entity.CommoditySku;
 import com.ziheng.deal.db.entity.TCommodity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;

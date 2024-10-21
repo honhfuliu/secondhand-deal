@@ -2,18 +2,22 @@
   <div class="home">
     <div class="el-login">
       <div class="div-button">
-        <div style="padding-right: 10px" @click="changeLoginType('password')">密码登录</div>
-        <div @click="changeLoginType('sms')">短信登录</div>
+        <div style="padding-right: 10px; cursor: pointer" @click="changeLoginType('password')" >密码登录</div>
+        <div @click="changeLoginType('sms')" style="cursor: pointer">短信登录</div>
       </div>
 
       <!--账号密码表单start-->
-      <el-form :model="loginForm"  label-width="10%" v-show="loginType === 'password'">
-        <el-form-item>
-          <el-input placeholder="账号" v-model="loginForm.username" prefix-icon="icon iconfont icon-zhanghao"></el-input>
+      <el-form :model="loginForm"  label-width="10%" v-show="loginType === 'password'" ref="from" :rules="rules">
+        <el-form-item prop="username">
+          <el-input placeholder="账号" v-model="loginForm.username" prefix-icon="icon iconfont icon-zhanghao"
+                    onkeyup="this.value=this.value.replace(/(^\s*)|(\s*$)/g,'',); this.value=this.value.replace(/[\u4E00-\u9FA5]/g,'')"
+          ></el-input>
         </el-form-item>
 
-        <el-form-item label-width="10%">
-          <el-input placeholder="密码" v-model="loginForm.password" type="password" show-password prefix-icon="icon iconfont icon-mima"></el-input>
+        <el-form-item label-width="10%"  prop="username">
+          <el-input placeholder="密码" v-model="loginForm.password" type="password" show-password prefix-icon="icon iconfont icon-mima"
+                    onkeyup="this.value=this.value.replace(/(^\s*)|(\s*$)/g,'',); this.value=this.value.replace(/[\u4E00-\u9FA5]/g,'')"
+          ></el-input>
         </el-form-item>
 
         <el-form-item label-width="10%" style="display: flex; flex-direction: row-reverse; margin-top: -20px">
@@ -38,13 +42,16 @@
       <!--账号密码表单end-->
 
       <!--验证码登录表单start-->
-      <el-form :model="smsForm" label-width="10%" v-show="loginType === 'sms'">
-        <el-form-item>
-          <el-input type="text" placeholder="邮箱" v-model="smsForm.email" prefix-icon="icon iconfont icon-icon-mail"></el-input>
+      <el-form :model="smsForm" label-width="10%" v-show="loginType === 'sms'" ref="from1" :rules="rules">
+        <el-form-item prop="email">
+          <el-input type="text" placeholder="邮箱" v-model="smsForm.email" prefix-icon="icon iconfont icon-icon-mail"
+                    onkeyup="this.value=this.value.replace(/(^\s*)|(\s*$)/g,'',); this.value=this.value.replace(/[\u4E00-\u9FA5]/g,'')"
+          ></el-input>
         </el-form-item>
 
-        <el-form-item label-width="10%" style="margin-bottom: 60px">
-          <el-input type="text"  placeholder="请输入验证码" v-model="smsForm.code" prefix-icon="icon iconfont icon-yanzhengma">
+        <el-form-item label-width="10%" style="margin-bottom: 60px" prop="code">
+          <el-input type="text"  placeholder="请输入验证码" v-model="smsForm.code" prefix-icon="icon iconfont icon-yanzhengma"
+                    onkeyup="this.value=this.value.replace(/(^\s*)|(\s*$)/g,'',); this.value=this.value.replace(/[\u4E00-\u9FA5]/g,'')">
             <template slot="append">
               <el-button :disabled="isSend" @click="countDown">{{codeName}}
               </el-button>
@@ -95,6 +102,22 @@ export default {
         username: null,
         password: null
       },
+      rules: {
+        username: [
+          { required: true, message: "请输入用户名", trigger: "blur" },
+          { min: 5, max: 18, message: "长度在6-18个字符之间", trigger: "blur" }
+        ],
+        password: [
+          { required: true, message: "请输入密码", trigger: "blur" },
+          { min: 6, max: 25, message: "长度在6-25个字符之间", trigger: "blur" }
+        ],
+        email: [
+          { required: true, message: "请输入邮箱", trigger: "blur" },
+        ],
+        code: [
+          { required: true, message: "验证码不能为空", trigger: "blur" },
+        ]
+      },
 
       // 验证码数据接收
       smsForm: {
@@ -111,18 +134,32 @@ export default {
   methods:  {
     // 发送登录请求
     submitEmail() {
-      this.$axios({
-        url: "user/code",
-        method: "post",
-        data: this.smsForm
-      }).then(msg => {
-        if (msg.data.code === 200) {
-          alert("登录成功")
-          sessionStorage.setItem("token", msg.data.data.token)
-        } else {
-          alert(msg.data.message)
+      this.$refs.from1.validate((valid) =>{
+        if (valid){
+          this.$axios({
+            url: "user/code",
+            method: "post",
+            data: this.smsForm
+          }).then(msg => {
+            if (msg.data.code === 200) {
+              alert("登录成功")
+              sessionStorage.setItem("token", msg.data.data.token)
+              sessionStorage.setItem("Role", "user")
+              // sessionStorage.setItem("username", this.loginForm.username)
+            } else {
+              alert(msg.data.message)
+            }
+          })
+        }else {
+          this.$message({
+            showClose: true,
+            message: '字段不能为空！',
+            type: 'error'
+          })
+          return false; // 中断执行
         }
       })
+
     },
 
 
@@ -147,36 +184,61 @@ export default {
 
     // 发送验证码
     sendCode() {
-      this.$axios({
-        url: "user/send",
-        method: "post",
-        data: this.smsForm
-      }).then(msg => {
-        if (msg.data.code === 200) {
-          this.isSend = true
-          alert(msg.data.message)
+      this.$refs.from1.validate((valid) =>{
+        if (valid){
+          this.$axios({
+            url: "user/send",
+            method: "post",
+            data: this.smsForm
+          }).then(msg => {
+            if (msg.data.code === 200) {
+              this.isSend = true
+              alert(msg.data.message)
+            }else {
+              alert(msg.data.message)
+            }
+          })
         }else {
-          alert(msg.data.message)
+          this.$message({
+            showClose: true,
+            message: '字段不能为空！',
+            type: 'error'
+          })
+          this.isSend = false
+          return false; // 中断执行
         }
       })
+
     },
 
 
     // 密码登录提交
     loginFormSubmit() {
-      this.$axios({
-        url: "/user",
-        method: "post",
-        data: this.loginForm
-      }).then(msg => {
-        if (msg.data.code === 200) {
-          alert(msg.data.message)
-          // console.log(msg.data)
-          sessionStorage.setItem("token", msg.data.data.token)
-          sessionStorage.setItem("username", this.loginForm.username)
-          this.$router.push('/home');
-        } else {
-          alert(msg.data.message)
+      this.$refs.from.validate((valid) => {
+        if (valid){
+          this.$axios({
+            url: "/user",
+            method: "post",
+            data: this.loginForm
+          }).then(msg => {
+            if (msg.data.code === 200) {
+              alert(msg.data.message)
+              // console.log(msg.data)
+              sessionStorage.setItem("token", msg.data.data.token)
+              sessionStorage.setItem("username", this.loginForm.username)
+              sessionStorage.setItem("Role", "user")
+              this.$router.push('/home');
+            } else {
+              alert(msg.data.message)
+            }
+          })
+        }else {
+          this.$message({
+            showClose: true,
+            message: '字段不能为空！',
+            type: 'error'
+          })
+          return false; // 中断执行
         }
       })
     },

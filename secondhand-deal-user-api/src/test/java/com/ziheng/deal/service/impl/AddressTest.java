@@ -1,7 +1,11 @@
 package com.ziheng.deal.service.impl;
 
+import cn.hutool.core.map.MapUtil;
+import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
 import com.ziheng.deal.common.domain.DTO.AddressDTO;
 import com.ziheng.deal.common.domain.VO.AddressVO;
+import com.ziheng.deal.db.entity.CommoditySku;
 import com.ziheng.deal.db.mapper.TAddressMapper;
 import com.ziheng.deal.db.service.TAddressService;
 import jakarta.annotation.Resource;
@@ -16,13 +20,12 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.DigestUtils;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -38,6 +41,98 @@ public class AddressTest {
 
     @Autowired
     private StringRedisTemplate redisTemplate;
+
+    @Test
+    void test013(){
+        Integer integer = 2;
+        Integer integer1 = 3;
+        System.out.println(integer1.compareTo(integer) > 0);
+    }
+
+    @Test
+    void test012(){
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("颜色","白色");
+        map.put("low_stock",20);
+        map.put("尺寸",18);
+        map.put("price",20);
+        map.put("stock",6000);
+
+        HashMap<String, Object> map1 = new HashMap<>();
+        map1.put("颜色","白色");
+        map1.put("low_stock",20);
+        map1.put("尺寸",18);
+        map1.put("price",20);
+        map1.put("stock",6001);
+        System.out.println(map1.equals(map));
+
+        String jsonStr = JSONUtil.toJsonStr(map);
+        System.out.println(jsonStr);
+        String jsonStr1 = JSONUtil.toJsonStr(map1);
+        System.out.println(jsonStr1);
+
+
+        System.out.println(jsonStr.equals(jsonStr1));
+
+        System.out.println("---------------------");
+        Map bean = JSONUtil.toBean(jsonStr, Map.class);
+        System.out.println(bean.equals(map1));
+
+    }
+
+    @Test
+    void test011(){
+        ArrayList<HashMap<String, Object>> skus  =  new ArrayList<>();
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("颜色","白色");
+        map.put("low_stock",20);
+        map.put("尺寸",18);
+        map.put("price",20);
+        map.put("stock",6000);
+
+        HashMap<String, Object> map1 = new HashMap<>();
+        map1.put("颜色","白色");
+        map1.put("low_stock",20);
+        map1.put("尺寸",20);
+        map1.put("price",30);
+        map1.put("stock",9000);
+
+
+        skus.add(map);
+        skus.add(map1);
+        String jsonStr = JSONUtil.toJsonStr(map1); // 将map转换为字符串
+        System.out.println(jsonStr.getClass().toString());
+
+        Map resulMap = JSONUtil.toBean(jsonStr, Map.class); // 将JSON字符串转换为map
+        Set set = resulMap.keySet();
+        for (Object o : set) {
+            System.out.println(o);
+        }
+        System.out.println(resulMap.getClass().toString());
+
+
+
+        /*
+        ArrayList<CommoditySku> commoditySkus = new ArrayList<>();
+
+        for (HashMap<String, Object> maps : skus) {
+            CommoditySku commoditySku = new CommoditySku();
+
+            commoditySku.setPrice(new BigDecimal( Integer.parseInt ( maps.get("price").toString() )));
+            commoditySku.setCommodityNumber((Integer) maps.get("stock"));
+            commoditySku.setLowCommodityNumber((Integer) maps.get("low_stock"));
+            maps.remove("price");
+            maps.remove("stock");
+            maps.remove("low_stock");
+            commoditySku.setCommoditySku(maps);
+//                System.out.println(maps.get(s));
+
+            commoditySkus.add(commoditySku);
+        }
+        for (CommoditySku sku : commoditySkus) {
+            System.out.println(sku);
+        }*/
+    }
 
     @Test
     void test101(){

@@ -81,6 +81,7 @@ public class CommodityCollectServiceImpl extends ServiceImpl<CommodityCollectMap
     @Override
     public List<CollectCommodityDTO> getByUserIdCollectCommodity(Integer userId) {
         List<CollectCommodityDTO> byUserIdCollectCommodity = commodityCollectMapper.getByUserIdCollectCommodity(userId);
+
         return byUserIdCollectCommodity;
     }
 

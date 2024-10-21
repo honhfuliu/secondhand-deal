@@ -293,7 +293,7 @@
                   <div>
                     <img :src="`${URL}/${item.imgPath}`" class="div-img">
                   </div>
-                  <div style="width: 280px; margin-bottom: 20px">
+                  <div style="width: 280px; margin-bottom: 20px; height: 49px">
                     <span class="title-span">{{ item.commodityTitle }}</span>
                   </div>
                   <div style="display: flex; margin-bottom: 10px; margin-left: 8px">
@@ -371,6 +371,9 @@ export default {
   methods:{
     // 商品搜素
     search(){
+      if (this.searchInfo != null){
+        this.searchClassify(this.searchInfo)
+      }
 
     },
 
@@ -467,6 +470,7 @@ export default {
 
 .div-img{
   width: 290px;
+  height: 290px;
   border-radius: 10px
 }
 

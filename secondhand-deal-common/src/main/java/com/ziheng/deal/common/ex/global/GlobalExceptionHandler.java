@@ -22,6 +22,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @ControllerAdvice
 @ResponseBody
 public class GlobalExceptionHandler {
+
+    // 积分不足异常处理
+    @ExceptionHandler(IntegralNotSufficientException.class)
+    public ResultJsonData<Void> integralNotSufficientException(){
+        return ResultJsonData.fali(ReturnCodeEnum.RC5023.getCode(), ReturnCodeEnum.RC5023.getMessage());
+    }
+
+    // 商品sku不存在异常处理
+    @ExceptionHandler(CommoditySkuException.class)
+    public ResultJsonData<Void> commoditySkuException(){
+        return ResultJsonData.fali(ReturnCodeEnum.RC5022.getCode(), ReturnCodeEnum.RC5022.getMessage());
+    }
+
     // 订单不存在异常处理
     @ExceptionHandler(OrderNotFoundException.class)
     public ResultJsonData<Void> rderNotFoundException(){

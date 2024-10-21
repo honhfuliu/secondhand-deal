@@ -224,7 +224,7 @@ export default {
           alert("设置成功")
           location.reload()
         } else {
-          alert(msg.data.code)
+          alert(msg.data.message)
         }
       })
     },

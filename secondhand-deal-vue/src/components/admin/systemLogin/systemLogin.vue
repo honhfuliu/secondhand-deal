@@ -24,10 +24,14 @@
 
           <el-form class="form" :model="loginData">
             <el-form-item style="margin-top: 10px">
-              <el-input type="text" placeholder="账号" v-model="loginData.username" prefix-icon="icon iconfont icon-zhanghao"></el-input>
+              <el-input type="text" placeholder="账号" v-model="loginData.username" prefix-icon="icon iconfont icon-zhanghao"
+                        onkeyup="this.value=this.value.replace(/(^\s*)|(\s*$)/g,'',); this.value=this.value.replace(/[\u4E00-\u9FA5]/g,'')"
+              ></el-input>
             </el-form-item>
             <el-form-item>
-              <el-input type="password" show-password placeholder="密码" v-model="loginData.password" prefix-icon="icon iconfont icon-mima"></el-input>
+              <el-input type="password" show-password placeholder="密码" v-model="loginData.password" prefix-icon="icon iconfont icon-mima"
+                        onkeyup="this.value=this.value.replace(/(^\s*)|(\s*$)/g,'',); this.value=this.value.replace(/[\u4E00-\u9FA5]/g,'')"
+              ></el-input>
             </el-form-item>
             <el-form-item>
               <el-button style="width: 300px" type="primary" round @click="submitLogin">确认</el-button>
@@ -66,6 +70,7 @@ export default {
         if (msg.data.code === 200) {
           // console.log(msg.data.data.token)
           sessionStorage.setItem("adminToken", msg.data.data.token)
+          sessionStorage.setItem("Role", "admin")
           this.$router.push('/systemManage/systemHome');
         } else {
           alert(msg.data.message)

@@ -29,7 +29,7 @@
                   <span class="c">设置</span>
                 </el-menu-item>
 
-                <el-menu-item index="/login">
+                <el-menu-item @click="freshen">
                   <i class="icon iconfont icon-shuaxin c" ></i>
                   <span class="c">刷新</span>
                 </el-menu-item>
@@ -127,6 +127,9 @@
 export default {
   name: "systemHome",
   methods: {
+    freshen(){
+      location.reload();
+    }
   }
 }
 </script>

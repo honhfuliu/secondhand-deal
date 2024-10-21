@@ -6,6 +6,7 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 @Data
 public class CommodityVO {
@@ -35,11 +36,11 @@ public class CommodityVO {
     @NotBlank(message = "商品类型不能为空")
     private String commodityType; // 商品类型（成色）
 
-    @NotNull(message = "商品价格不能为空")
-    private BigDecimal cPrice; // 价格
-
-    @NotNull(message = "商品数量不能为空")
-    private Integer cNumber; // 数量
+//    @NotNull(message = "商品价格不能为空")
+//    private BigDecimal cPrice; // 价格
+//
+//    @NotNull(message = "商品数量不能为空")
+//    private Integer cNumber; // 数量
 
     @NotBlank(message = "配送方式不能为空")
     private String deliveryMethod; // 配送方式
@@ -50,5 +51,8 @@ public class CommodityVO {
 
     @NotBlank(message = "商品详情不能为空")
     private String commodityDetails; // 商品详情信息
+
+    private ArrayList<HashMap<String,Object>> commoditySku; // 商品sku存储
+    private ArrayList<HashMap<String,Object>> commodityHeader; // 商品sku规格
 
 }

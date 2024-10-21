@@ -46,8 +46,6 @@
             t_commodity.c_id as id,
             t_commodity.c_status as status,
             t_commodity.commodity_title,
-            t_commodity.c_price,
-            t_commodity.c_number,
             t_commodity.buy_number,
             t_commodity.reject_reason,
             t_commodity.create_time as create_data,
@@ -60,6 +58,8 @@
             t_commodity.c_id = commodity_picture.commodity_id
         WHERE
             t_commodity.user_id = #{userId}
+        AND
+            t_commodity.c_status != 4
         AND
             commodity_picture.is_display_picture = 1
         <if test="commodityPageQueryVO.status != null">
@@ -78,7 +78,6 @@
             t_commodity.c_id AS id,
             t_commodity.c_status AS status,
             t_commodity.commodity_title,
-            t_commodity.c_price,
             t_commodity.create_time AS create_data,
             commodity_picture.p_path AS img_path
         FROM
@@ -98,7 +97,6 @@
         SELECT
             t_commodity.c_id as id,
             t_commodity.commodity_title,
-            t_commodity.c_price,
             t_commodity.buy_number,
             commodity_picture.p_path as img_path
         FROM
@@ -118,7 +116,6 @@
         SELECT
             t_commodity.c_id as id,
             t_commodity.commodity_title,
-            t_commodity.c_price,
             t_commodity.buy_number,
             commodity_picture.p_path as img_path
         FROM
@@ -139,6 +136,8 @@
           AND
             t_commodity.c_status = 2
     </select>
+
+
 
 
 </mapper>

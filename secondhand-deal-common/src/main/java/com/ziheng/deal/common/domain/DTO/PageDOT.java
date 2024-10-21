@@ -8,5 +8,6 @@ import java.util.List;
 @Data
 public class PageDOT<T> {
     private Integer total;
+    private Integer page;
     private List<T> list;
 }

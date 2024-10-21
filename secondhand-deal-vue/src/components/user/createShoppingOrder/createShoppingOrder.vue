@@ -63,7 +63,7 @@
                 :header-cell-style="{ fontSize: '15px', background: '#f3f6f8',color: 'black', textAlign: 'center' }"
                 :data="MyOrder"
               >
-                <el-table-column label="商品名称" align="center" width="400">
+                <el-table-column label="商品名称" align="center" width="370">
                   <template v-slot="scope">
                     <div style="display: flex; justify-content: space-between">
                       <div>
@@ -82,6 +82,17 @@
                     <span>{{scope.row.deliveryFee}}</span>
                   </template>
                 </el-table-column>
+
+                <el-table-column label="商品规格" width="200" align="center">
+                  <template  v-slot="scope">
+                    <div v-for="(values ,key) in scope.row.commoditySku" :key="key">
+                      <span style="font-weight: 600" >{{ key }}</span>
+                      <span style="font-size: 16px; color: black; font-weight: 600">:</span>
+                      <span v-for="item in values" :key="item">{{ item }}</span>
+                    </div>
+                  </template>
+                </el-table-column>
+
                 <el-table-column label="原价" align="center" prop="unitPrice"></el-table-column>
                 <el-table-column label="数量" align="center" width="200px">
                   <template v-slot="scope">
@@ -428,7 +439,8 @@ export default {
           commodityId: this.MyOrder[i].commodityId,
           unitPrice: this.MyOrder[i].unitPrice,
           buyQuantity: this.MyOrder[i].buyQuantity,
-          totalPrice: this.totalPrice[i].unitPrice * this.MyOrder[i].buyQuantity
+          totalPrice: this.totalPrice[i].unitPrice * this.MyOrder[i].buyQuantity,
+          commoditySku: this.MyOrder[i].commoditySku
         }
         commodityInfos.push(info)
       }

@@ -9,11 +9,11 @@
 
       <div style="margin: auto">
         <!--身份验证start-->
-        <el-form v-show="step === 1" :model="RecoverInfo">
-          <el-form-item>
+        <el-form v-show="step === 1" :model="RecoverInfo" ref="from" :rules="rules">
+          <el-form-item prop="username">
             <el-input placeholder="账号名称" style="width: 350px" v-model="RecoverInfo.username" prefix-icon="icon iconfont icon-zhanghao"></el-input>
           </el-form-item>
-          <el-form-item>
+          <el-form-item prop="email">
             <el-input placeholder="邮箱" v-model="RecoverInfo.email" prefix-icon="icon iconfont icon-icon-mail"></el-input>
           </el-form-item>
           <el-form-item>
@@ -23,15 +23,15 @@
         <!--身份验证end-->
 
         <!--输入验证码start-->
-        <el-form v-show="step === 2" :model="RecoverInfo">
-          <el-form-item >
+        <el-form v-show="step === 2" :model="RecoverInfo" ref="from1" :rules="rules">
+          <el-form-item  prop="email">
             <el-input placeholder="邮箱" style="width: 350px" v-model="RecoverInfo.email"  prefix-icon="icon iconfont icon-icon-mail">
               <template slot="append">
                 <el-button :disabled="isSend" @click="countDown">{{codeName}}</el-button>
               </template>
             </el-input>
           </el-form-item>
-          <el-form-item>
+          <el-form-item prop="code">
             <el-input placeholder="验证码" v-model="RecoverInfo.code" prefix-icon="icon iconfont icon-yanzhengma"></el-input>
           </el-form-item>
           <el-form-item>
@@ -66,6 +66,22 @@ export default {
   name: "recoverPassword",
   data(){
     return {
+
+      rules: {
+        username: [
+          { required: true, message: "请输入用户名", trigger: "blur" },
+        ],
+        password: [
+          { required: true, message: "请输入密码", trigger: "blur" },
+        ],
+        email: [
+          { required: true, message: "请输入邮箱", trigger: "blur" },
+        ],
+        code: [
+          { required: true, message: "验证码不能为空", trigger: "blur" },
+        ]
+      },
+
       // 数据绑定
       RecoverInfo: {
         username: null,
@@ -91,6 +107,14 @@ export default {
   methods:{
     // 密码提交
     submitPassword(){
+      if (!this.RecoverInfo.password || !this.RecoverInfo.repeatPassword) {
+        alert("密码不能为空");
+        return false;
+      }
+      if  (this.RecoverInfo.password !== this.RecoverInfo.repeatPassword) {
+        alert("两次输入密码不相同")
+        return false;
+      }
       const data = {
         username: this.RecoverInfo.username,
         email: this.RecoverInfo.email,
@@ -112,41 +136,66 @@ export default {
 
     // 验证码验证
     codeV(){
-      const data = {
-        username: this.RecoverInfo.username,
-        email: this.RecoverInfo.email,
-        code: this.RecoverInfo.code
-      }
-      this.$axios({
-        url: "reg/recover/code/v",
-        method: "post",
-        data: data
-      }).then(msg => {
-        if (msg.data.code === 200) {
-          this.step = 3
-        } else {
-          alert(msg.data.message)
+      this.$refs.from1.validate((valid) =>{
+        if (valid){
+          const data = {
+            username: this.RecoverInfo.username,
+            email: this.RecoverInfo.email,
+            code: this.RecoverInfo.code
+          }
+          this.$axios({
+            url: "reg/recover/code/v",
+            method: "post",
+            data: data
+          }).then(msg => {
+            if (msg.data.code === 200) {
+              this.step = 3
+            } else {
+              alert(msg.data.message)
+            }
+          })
+        }else {
+          this.$message({
+            showClose: true,
+            message: '字段不能为空！',
+            type: 'error'
+          })
+          return false; // 中断执行
         }
       })
+
+
     },
 
     // 账号邮箱提交验证
     usernameAndEmailSubmit(){
-      const data = {
-        username: this.RecoverInfo.username,
-        email: this.RecoverInfo.email
-      }
-      this.$axios({
-        url: "reg/recover",
-        method: "post",
-        data: data,
-      }).then(msg => {
-        if (msg.data.code === 200) {
-          this.step = 2;
-        } else {
-          alert(msg.data.message);
+      this.$refs.from.validate((valid) =>{
+        if (valid){
+          const data = {
+            username: this.RecoverInfo.username,
+            email: this.RecoverInfo.email
+          }
+          this.$axios({
+            url: "reg/recover",
+            method: "post",
+            data: data,
+          }).then(msg => {
+            if (msg.data.code === 200) {
+              this.step = 2;
+            } else {
+              alert(msg.data.message);
+            }
+          })
+        }else {
+          this.$message({
+            showClose: true,
+            message: '字段不能为空！',
+            type: 'error'
+          })
+          return false; // 中断执行
         }
       })
+
     },
 
 

@@ -8,5 +8,12 @@
       <jdbc-url>jdbc:mysql://localhost:3306/secondhand_deal</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="secondhand_deal@124.71.37.187" uuid="604e9688-607b-4fc3-852f-c8b54ebe74dc">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://124.71.37.187:3306/secondhand_deal</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

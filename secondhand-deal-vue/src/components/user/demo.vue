@@ -1,54 +1,61 @@
 <template>
-  <div style="width: 100%; height: 30000px; background-color: red">
-    <div style="background-color: #FFFFFF; line-height: 50px" v-if="show" class="d">
-      <span>人才1</span>
-      <span>人才2</span>
-      <span>人才3</span>
+  <div style="width: 100%; float: left">
+    <div v-for="(values, key) in commodityInfo.commoditySkuHeader" :key="key">
+      <div>
+        <span class="span4 title_span" style="float: left; margin: 10px 0">{{ key }}</span>
+        <span style="float: left; margin: 7px 4px">:</span>
+      </div>
+
+      <div style="display: flex; flex-wrap: wrap; width: 70%">
+        <div
+          tabindex="1"
+          class="sku-div-header"
+          :class="{ 'focus': selectedSkus[key] === value }"
+          v-for="(value, index) in values"
+          :key="index"
+          @click="selectSku(key, value)"
+        >{{ value }}</div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "demo",
-  data(){
-    return{
-      show: false,
-    }
+  data() {
+    return {
+      // SKU 规格选项
+      commodityInfo: {
+        commoditySkuHeader: {
+          颜色: ['黑色', '白色', '紫色'],
+          尺寸: ['5.5', '5.6'],
+        },
+      },
+      // 记录每个规格的选中状态
+      selectedSkus: {}, // 每个规格选中的值
+    };
   },
-
-  created() {
-
-
+  methods: {
+    selectSku(specKey, specValue) {
+      // 更新选中状态，只会改变当前规格的选中项
+      this.$set(this.selectedSkus, specKey, specValue);
+    },
   },
-  methods:{
-    handleScroll() {
-      // 页面滑动的距离
-      let scrollTop = document.documentElement.scrollTop
-      // 当页面滑动的距离大于300px时元素显示，否则不显示
-      if (scrollTop >= 300) {
-        this.show = true
-      } else {
-        this.show = false
-      }
-    }
-  },
-
-  mounted() {
-    window.addEventListener('scroll', this.handleScroll)
-  },
-  beforeDestroy() {
-    window.removeEventListener('scroll', this.handleScroll)
-  }
-
-}
+};
 </script>
 
-<style scoped>
-.d{
-  position: fixed;
-  top: 0;
-  z-index: 999;
+<style>
+.sku-div-header {
+  padding: 10px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  margin: 5px;
+  border-radius: 4px;
 }
 
+.focus {
+  background-color: lightcoral; /* 选中的背景颜色 */
+  border-color: orange; /* 选中的边框颜色 */
+  color: white;
+}
 </style>

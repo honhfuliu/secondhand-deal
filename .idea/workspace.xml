@@ -5,17 +5,64 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ece8b16d-be46-4534-a2f5-3a3c0c7c4f25" name="Changes" comment="2024.5.27">
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/secondhand-deal-admin-api/src/main/java/com/ziheng/deal/admin/controller/ClassificationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-admin-api/src/main/java/com/ziheng/deal/admin/controller/ClassificationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/secondhand-deal-admin-api/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-admin-api/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/secondhand-deal-admin-api/target/secondhand-deal-admin-api-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-admin-api/target/secondhand-deal-admin-api-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/secondhand-deal-common/src/main/java/com/ziheng/deal/common/domain/DTO/CommodityDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-common/src/main/java/com/ziheng/deal/common/domain/DTO/CommodityDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/secondhand-deal-common/src/main/java/com/ziheng/deal/common/domain/DTO/PageDOT.java" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-common/src/main/java/com/ziheng/deal/common/domain/DTO/PageDOT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/secondhand-deal-common/src/main/java/com/ziheng/deal/common/domain/DTO/SettlementCommodityDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-common/src/main/java/com/ziheng/deal/common/domain/DTO/SettlementCommodityDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/secondhand-deal-common/src/main/java/com/ziheng/deal/common/domain/DTO/commodityListDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-common/src/main/java/com/ziheng/deal/common/domain/DTO/commodityListDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/secondhand-deal-common/src/main/java/com/ziheng/deal/common/domain/DTO/shoppingCartDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-common/src/main/java/com/ziheng/deal/common/domain/DTO/shoppingCartDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/secondhand-deal-common/src/main/java/com/ziheng/deal/common/domain/VO/CommodityOrderVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-common/src/main/java/com/ziheng/deal/common/domain/VO/CommodityOrderVO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/secondhand-deal-common/src/main/java/com/ziheng/deal/common/domain/VO/CommoditySettlementVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-common/src/main/java/com/ziheng/deal/common/domain/VO/CommoditySettlementVO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/secondhand-deal-common/src/main/java/com/ziheng/deal/common/domain/VO/CommodityVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-common/src/main/java/com/ziheng/deal/common/domain/VO/CommodityVO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/secondhand-deal-common/src/main/java/com/ziheng/deal/common/domain/VO/ShoppingCartCommoditySettlementVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-common/src/main/java/com/ziheng/deal/common/domain/VO/ShoppingCartCommoditySettlementVO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/secondhand-deal-common/src/main/java/com/ziheng/deal/common/domain/VO/ShoppingCartVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-common/src/main/java/com/ziheng/deal/common/domain/VO/ShoppingCartVO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/secondhand-deal-common/src/main/java/com/ziheng/deal/common/domain/query/PageQueryBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-common/src/main/java/com/ziheng/deal/common/domain/query/PageQueryBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/secondhand-deal-common/src/main/java/com/ziheng/deal/common/ex/global/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-common/src/main/java/com/ziheng/deal/common/ex/global/GlobalExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/secondhand-deal-common/src/main/java/com/ziheng/deal/common/resp/ReturnCodeEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-common/src/main/java/com/ziheng/deal/common/resp/ReturnCodeEnum.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/secondhand-deal-common/src/main/resources/application-common.yml" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-common/src/main/resources/application-common.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/secondhand-deal-vue/src/components/user/CollectCommodity/collectCommodity.vue" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-vue/src/components/user/CollectCommodity/collectCommodity.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/secondhand-deal-db/src/main/java/com/ziheng/deal/db/entity/ShoppingCart.java" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-db/src/main/java/com/ziheng/deal/db/entity/ShoppingCart.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/secondhand-deal-db/src/main/java/com/ziheng/deal/db/entity/TCommodity.java" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-db/src/main/java/com/ziheng/deal/db/entity/TCommodity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/secondhand-deal-db/src/main/java/com/ziheng/deal/db/entity/TOrder.java" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-db/src/main/java/com/ziheng/deal/db/entity/TOrder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/secondhand-deal-db/src/main/java/com/ziheng/deal/db/mapper/TCommodityMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-db/src/main/java/com/ziheng/deal/db/mapper/TCommodityMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/secondhand-deal-db/src/main/java/com/ziheng/deal/db/redis/KeyExpiredListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-db/src/main/java/com/ziheng/deal/db/redis/KeyExpiredListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/secondhand-deal-db/src/main/java/com/ziheng/deal/db/service/TCommodityService.java" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-db/src/main/java/com/ziheng/deal/db/service/TCommodityService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/secondhand-deal-db/src/main/java/com/ziheng/deal/db/service/TOrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-db/src/main/java/com/ziheng/deal/db/service/TOrderService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/secondhand-deal-db/src/main/java/com/ziheng/deal/db/service/impl/CommodityCollectServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-db/src/main/java/com/ziheng/deal/db/service/impl/CommodityCollectServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/secondhand-deal-db/src/main/java/com/ziheng/deal/db/service/impl/ShoppingCartServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-db/src/main/java/com/ziheng/deal/db/service/impl/ShoppingCartServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/secondhand-deal-db/src/main/java/com/ziheng/deal/db/service/impl/TAddressServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-db/src/main/java/com/ziheng/deal/db/service/impl/TAddressServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/secondhand-deal-db/src/main/java/com/ziheng/deal/db/service/impl/TCommodityServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-db/src/main/java/com/ziheng/deal/db/service/impl/TCommodityServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/secondhand-deal-db/src/main/java/com/ziheng/deal/db/service/impl/TOrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-db/src/main/java/com/ziheng/deal/db/service/impl/TOrderServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/secondhand-deal-db/src/main/resources/application-db.yml" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-db/src/main/resources/application-db.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/secondhand-deal-db/src/main/resources/mapper/CommodityCollectMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-db/src/main/resources/mapper/CommodityCollectMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/secondhand-deal-db/src/main/resources/mapper/ShoppingCartMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-db/src/main/resources/mapper/ShoppingCartMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/secondhand-deal-db/src/main/resources/mapper/TCommodityMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-db/src/main/resources/mapper/TCommodityMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/secondhand-deal-db/src/main/resources/mapper/TOrderMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-db/src/main/resources/mapper/TOrderMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/secondhand-deal-user-api/src/main/java/com/ziheng/deal/controller/CommodityController.java" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-user-api/src/main/java/com/ziheng/deal/controller/CommodityController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/secondhand-deal-user-api/src/main/java/com/ziheng/deal/controller/ShoppingOrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-user-api/src/main/java/com/ziheng/deal/controller/ShoppingOrderController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/secondhand-deal-user-api/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-user-api/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/secondhand-deal-user-api/src/test/java/com/ziheng/deal/service/TCommodityServiceImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-user-api/src/test/java/com/ziheng/deal/service/TCommodityServiceImplTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/secondhand-deal-user-api/src/test/java/com/ziheng/deal/service/impl/AddressTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-user-api/src/test/java/com/ziheng/deal/service/impl/AddressTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/secondhand-deal-user-api/src/test/java/com/ziheng/deal/service/impl/OrderTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-user-api/src/test/java/com/ziheng/deal/service/impl/OrderTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/secondhand-deal-vue/src/components/admin/commodityExamine/commodityExamine.vue" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-vue/src/components/admin/commodityExamine/commodityExamine.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/secondhand-deal-vue/src/components/admin/commodityExamine/commodityVerifyDisplay/commodityVerifyDisplay.vue" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-vue/src/components/admin/commodityExamine/commodityVerifyDisplay/commodityVerifyDisplay.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/secondhand-deal-vue/src/components/admin/systemHome/systemHome.vue" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-vue/src/components/admin/systemHome/systemHome.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/secondhand-deal-vue/src/components/admin/systemLogin/systemLogin.vue" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-vue/src/components/admin/systemLogin/systemLogin.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/secondhand-deal-vue/src/components/user/Index/Index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-vue/src/components/user/Index/Index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/secondhand-deal-vue/src/components/user/UserChat/userChat.vue" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-vue/src/components/user/UserChat/userChat.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/secondhand-deal-vue/src/components/user/accountSettings/updateInfo/UpdateInfo.vue" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-vue/src/components/user/accountSettings/updateInfo/UpdateInfo.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/secondhand-deal-vue/src/components/user/accountSettings/MyAddress/MyAddress.vue" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-vue/src/components/user/accountSettings/MyAddress/MyAddress.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/secondhand-deal-vue/src/components/user/accountSettings/updatePassword/updatePassword.vue" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-vue/src/components/user/accountSettings/updatePassword/updatePassword.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/secondhand-deal-vue/src/components/user/commodityDisplay/commodityDisplay.vue" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-vue/src/components/user/commodityDisplay/commodityDisplay.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/secondhand-deal-vue/src/components/user/commoditySearch/commoditySearch.vue" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-vue/src/components/user/commoditySearch/commoditySearch.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/secondhand-deal-vue/src/components/user/common/Common.vue" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-vue/src/components/user/common/Common.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/secondhand-deal-vue/src/components/user/common/HomeCommon.vue" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-vue/src/components/user/common/HomeCommon.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/secondhand-deal-vue/src/components/user/createShoppingOrder/createShoppingOrder.vue" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-vue/src/components/user/createShoppingOrder/createShoppingOrder.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/secondhand-deal-vue/src/components/user/demo.vue" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-vue/src/components/user/demo.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/secondhand-deal-vue/src/components/user/home/CommodityRelease/CommodityRelease.vue" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-vue/src/components/user/home/CommodityRelease/CommodityRelease.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/secondhand-deal-vue/src/components/user/home/Home.vue" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-vue/src/components/user/home/Home.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/secondhand-deal-vue/src/components/user/home/commodityShow/commodityShow.vue" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-vue/src/components/user/home/commodityShow/commodityShow.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/secondhand-deal-vue/src/components/user/login/login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-vue/src/components/user/login/login.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/secondhand-deal-vue/src/components/user/orderPay/orderPay.vue" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-vue/src/components/user/orderPay/orderPay.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/secondhand-deal-vue/src/components/user/login/recoverPassword.vue" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-vue/src/components/user/login/recoverPassword.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/secondhand-deal-vue/src/components/user/login/register.vue" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-vue/src/components/user/login/register.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/secondhand-deal-vue/src/components/user/shoppingCart/shoppingCart.vue" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-vue/src/components/user/shoppingCart/shoppingCart.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/secondhand-deal-vue/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-vue/src/main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/secondhand-deal-vue/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/secondhand-deal-vue/src/router/index.js" afterDir="false" />
@@ -76,7 +123,7 @@
     &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
     &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
     &quot;jdk.selected.JAVA_MODULE&quot;: &quot;17&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/myProject/secondhandDeal/secondhand-deal/secondhand-deal-db/src/main/java/com/ziheng/deal/db/service/impl&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/其它/应用软件系统开发/应用软件系统开发-省赛初始资源(1)/应用软件系统开发-省赛初始资源/应用软件系统开发-省赛初始资源/模块二/双碳管理系统-初始框架/carbon&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -86,7 +133,7 @@
     &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.ide.settings.uml&quot;,
     &quot;spring.configuration.checksum&quot;: &quot;7100ceee0fe03c66be8dcea7e01a5f48&quot;,
     &quot;ts.external.directory.path&quot;: &quot;E:\\software2\\intellij_idea\\IntelliJ IDEA 2023.1.3\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
@@ -141,7 +188,7 @@
     </option>
   </component>
   <component name="RunManager" selected="Spring Boot.DealUserApiMain">
-    <configuration name="AddressTest.test08" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="AddressTest.test011" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="secondhand-deal-user-api" />
       <extension name="coverage">
         <pattern>
@@ -151,13 +198,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.ziheng.deal.service.impl" />
       <option name="MAIN_CLASS_NAME" value="com.ziheng.deal.service.impl.AddressTest" />
-      <option name="METHOD_NAME" value="test08" />
+      <option name="METHOD_NAME" value="test011" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="AddressTest.test09" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="AddressTest.test012" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="secondhand-deal-user-api" />
       <extension name="coverage">
         <pattern>
@@ -167,13 +214,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.ziheng.deal.service.impl" />
       <option name="MAIN_CLASS_NAME" value="com.ziheng.deal.service.impl.AddressTest" />
-      <option name="METHOD_NAME" value="test09" />
+      <option name="METHOD_NAME" value="test012" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="AddressTest.test101" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="AddressTest.test013" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="secondhand-deal-user-api" />
       <extension name="coverage">
         <pattern>
@@ -183,13 +230,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.ziheng.deal.service.impl" />
       <option name="MAIN_CLASS_NAME" value="com.ziheng.deal.service.impl.AddressTest" />
-      <option name="METHOD_NAME" value="test101" />
+      <option name="METHOD_NAME" value="test013" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="OrderTest.test03" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="OrderTest.tes04" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="secondhand-deal-user-api" />
       <extension name="coverage">
         <pattern>
@@ -199,7 +246,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.ziheng.deal.service.impl" />
       <option name="MAIN_CLASS_NAME" value="com.ziheng.deal.service.impl.OrderTest" />
-      <option name="METHOD_NAME" value="test03" />
+      <option name="METHOD_NAME" value="tes04" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -221,10 +268,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Spring Boot.DealUserApiMain" />
-        <item itemvalue="JUnit.AddressTest.test101" />
-        <item itemvalue="JUnit.AddressTest.test08" />
-        <item itemvalue="JUnit.AddressTest.test09" />
-        <item itemvalue="JUnit.OrderTest.test03" />
+        <item itemvalue="JUnit.OrderTest.tes04" />
+        <item itemvalue="JUnit.AddressTest.test013" />
+        <item itemvalue="JUnit.AddressTest.test012" />
+        <item itemvalue="JUnit.AddressTest.test011" />
       </list>
     </recent_temporary>
   </component>
@@ -387,7 +434,63 @@
       <workItem from="1723353825975" duration="5624000" />
       <workItem from="1723438955620" duration="14152000" />
       <workItem from="1723530863534" duration="3556000" />
-      <workItem from="1723559703475" duration="57000" />
+      <workItem from="1723559703475" duration="1423000" />
+      <workItem from="1723614854311" duration="1295000" />
+      <workItem from="1723617409929" duration="771000" />
+      <workItem from="1723646713127" duration="755000" />
+      <workItem from="1723689125529" duration="2326000" />
+      <workItem from="1723791116542" duration="1019000" />
+      <workItem from="1723880119873" duration="1241000" />
+      <workItem from="1723900289247" duration="1178000" />
+      <workItem from="1723960586664" duration="1307000" />
+      <workItem from="1724044384047" duration="602000" />
+      <workItem from="1724118987188" duration="1788000" />
+      <workItem from="1724570285737" duration="606000" />
+      <workItem from="1724583781760" duration="894000" />
+      <workItem from="1724642542916" duration="596000" />
+      <workItem from="1724718911024" duration="3991000" />
+      <workItem from="1724910094013" duration="8263000" />
+      <workItem from="1724978298482" duration="16709000" />
+      <workItem from="1725072750498" duration="8648000" />
+      <workItem from="1725171573567" duration="133000" />
+      <workItem from="1725171713697" duration="4501000" />
+      <workItem from="1725206402610" duration="12000" />
+      <workItem from="1725243860803" duration="3379000" />
+      <workItem from="1725324362713" duration="8386000" />
+      <workItem from="1725410157448" duration="17325000" />
+      <workItem from="1725503157967" duration="19007000" />
+      <workItem from="1725585327589" duration="4087000" />
+      <workItem from="1725712155190" duration="1258000" />
+      <workItem from="1725785334546" duration="398000" />
+      <workItem from="1725885726073" duration="647000" />
+      <workItem from="1725932364342" duration="1098000" />
+      <workItem from="1725935407574" duration="31000" />
+      <workItem from="1725959529863" duration="653000" />
+      <workItem from="1726038242619" duration="243000" />
+      <workItem from="1726214542211" duration="176000" />
+      <workItem from="1726625509678" duration="15000" />
+      <workItem from="1727073713604" duration="745000" />
+      <workItem from="1727079483914" duration="393000" />
+      <workItem from="1727248883584" duration="705000" />
+      <workItem from="1727270329539" duration="1458000" />
+      <workItem from="1727331816783" duration="720000" />
+      <workItem from="1727576358548" duration="8303000" />
+      <workItem from="1727665714217" duration="2509000" />
+      <workItem from="1727682613777" duration="1657000" />
+      <workItem from="1728289352093" duration="756000" />
+      <workItem from="1728348456747" duration="5596000" />
+      <workItem from="1728434246455" duration="14574000" />
+      <workItem from="1728543630904" duration="6975000" />
+      <workItem from="1728631487842" duration="11140000" />
+      <workItem from="1728699920671" duration="8112000" />
+      <workItem from="1728789556833" duration="4540000" />
+      <workItem from="1728875461517" duration="368000" />
+      <workItem from="1728900187139" duration="802000" />
+      <workItem from="1728967852113" duration="610000" />
+      <workItem from="1729060624936" duration="57000" />
+      <workItem from="1729091546550" duration="300000" />
+      <workItem from="1729148971660" duration="363000" />
+      <workItem from="1729520170785" duration="88000" />
     </task>
     <task id="LOCAL-00001" summary="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;README.md">
       <option name="closed" value="true" />
@@ -469,11 +572,6 @@
           <properties class="com.ziheng.deal.common.ex.customizeErorr.serviceErorr.UsernameDuplicateException" package="com.ziheng.deal.common.ex.customizeErorr.serviceErorr" />
           <option name="timeStamp" value="2" />
         </breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/secondhand-deal-db/src/main/java/com/ziheng/deal/db/redis/KeyExpiredListener.java</url>
-          <line>46</line>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <pin-to-top-manager>

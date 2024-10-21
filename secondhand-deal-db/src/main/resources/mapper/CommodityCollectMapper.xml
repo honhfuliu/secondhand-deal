@@ -39,6 +39,8 @@
         AND
             commodity_collect.is_delete = 0
         AND
+            t_commodity.c_status != 4
+        AND
             commodity_picture.is_display_picture = 1;
     </select>
 

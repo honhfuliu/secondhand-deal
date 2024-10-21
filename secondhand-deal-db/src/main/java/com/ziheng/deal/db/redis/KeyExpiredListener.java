@@ -38,7 +38,6 @@ public class KeyExpiredListener extends KeyExpirationEventMessageListener {
     @Override
     public void doHandleMessage(Message message) {
 
-
         // 过期的 key
         byte[] body = message.getBody();
 

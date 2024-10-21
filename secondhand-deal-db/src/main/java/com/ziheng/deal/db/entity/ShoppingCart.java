@@ -57,6 +57,11 @@ public class ShoppingCart implements Serializable {
      */
     private Integer commodityId;
 
+    /**
+     * 外键商品skuid
+     */
+    private Integer skuId;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 

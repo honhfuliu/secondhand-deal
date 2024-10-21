@@ -1,11 +1,11 @@
 package com.ziheng.deal.common.domain.DTO;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @Data
 public class CommodityDTO {
@@ -18,6 +18,8 @@ public class CommodityDTO {
 
 
     private String brand; // 品牌
+
+    private Integer buyNumber; // 销售数量
 
 
     private String locality; // 产地
@@ -38,7 +40,9 @@ public class CommodityDTO {
 
     private BigDecimal cPrice; // 价格
 
-    private Integer buyNumber; // 销量
+    private Map<String, List<Object>> commoditySkuHeader; // sku规格
+
+    private List<Map<String,Object>> commoditySkus; // sku信息
 
     private Integer cNumber; // 数量
 

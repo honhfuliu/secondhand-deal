@@ -48,6 +48,16 @@ public class TOrder implements Serializable {
     private Integer addressId;
 
     /**
+     * 商品skuId (商品sku外键)
+     */
+    private Integer skuId;
+
+    /**
+     * 订单商品序号
+     */
+    private Integer sort;
+
+    /**
      * 商品数量
      */
     private Integer commodityNumber;
