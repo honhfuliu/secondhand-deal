@@ -24,9 +24,9 @@ spring:
     # smtp服务主机  qq邮箱则为smtp.qq.com
     host: smtp.163.com
     # 发送邮件的账户
-    username: ziheng870@163.com
+    username: 
     #授权码
-    password: HOZXYKSWXCNRSMPH
+    password: 
     default-encoding: utf-8
     # 服务协议 smtp为发送邮件
     protocol: smtp
